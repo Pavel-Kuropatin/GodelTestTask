@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>List of authors</title>
+        <style>
+            a {
+                text-decoration: none;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>List of authors</h1>
+        <h3>This is the list of all available authors</h3>
+        <div>
+            <a href="/">To main page</a>
+            <a href="/books">Browse books</a>
+            <a href="/authors/add">Add a new author</a>
+            <a href="/search">Search</a>
+        </div>
+        <br>
+        <p th:each="author : ${authors}">
+            <a th:href="@{authors/{id}(id=${author.getId()})}" th:text="${author.getFirstName() + ' ' + author.getLastName() + '. Born ' + author.getBirthDate() + '. Sex' + ' ' + author.getSex() + '.'}">
+                first_name last_name. Born birth_date. Sex sex.
+            </a>
+        </p>
+    </body>
+</html>

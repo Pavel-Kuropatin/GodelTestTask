@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Book</title>
+        <style>
+            a {
+                text-decoration: none;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Author</h1>
+        <h3>This page contains information about this author</h3>
+        <div>
+            <a href="/">To main page</a>
+            <a href="/books">Browse books</a>
+            <a href="/authors">Browse authors</a>
+        </div>
+        <p th:text="${author.getFirstName() + ' ' + author.getLastName() + '. Born ' + author.getBirthDate() + '. Sex' + ' ' + author.getSex() + '.'}">
+            first_name last_name. Born birth_date. Sex sex.
+        </p>
+        <div>
+            <a th:href="@{{id}/edit(id=${author.getId()})}">Edit author</a>
+        </div>
+        <h3>Books by this author:</h3>
+        <p th:each="book : ${books}">
+            <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName() + ', ' + book.getYearOfPublication() + '. Published by ' + book.getPublisher() + '.'}">
+                book_name, year_of_publication.
+            </a>
+        </p>
+    </body>
+</html>

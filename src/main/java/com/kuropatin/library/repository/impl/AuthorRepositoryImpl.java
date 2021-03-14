@@ -1,0 +1,70 @@
+package com.kuropatin.library.repository.impl;
+
+import com.kuropatin.library.mappers.AuthorMapper;
+import com.kuropatin.library.models.Author;
+import com.kuropatin.library.repository.interfaces.AuthorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+
+@Repository
+public class AuthorRepositoryImpl implements AuthorRepository {
+
+    private final JdbcTemplate JDBC_TEMPLATE;
+
+    @Autowired
+    public AuthorRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        this.JDBC_TEMPLATE = jdbcTemplate;
+    }
+
+    @Override
+    public List<Author> getAllAuthors() {
+        String sql = "SELECT * FROM authors ORDER BY first_name";
+        return JDBC_TEMPLATE.query(sql, new AuthorMapper());
+    }
+
+    @Override
+    public Author getAuthorByAuthorId(int id) {
+        String sql = "SELECT * FROM authors WHERE id=?";
+        return JDBC_TEMPLATE.query(sql, new Object[]{id}, new AuthorMapper()).stream().findAny().orElse(null);
+    }
+
+    @Override
+    public List<Author> getAuthorsByBookId(int bookId) {
+        String sql = "SELECT authors.\"id\", authors.first_name, authors.last_name, authors.birth_date, authors.sex FROM books, authors, book_author WHERE books.\"id\" = book_author.book_id AND authors.\"id\" = book_author.author_id AND book_author.book_id = ?";
+        return JDBC_TEMPLATE.query(sql, new Object[]{bookId}, new AuthorMapper());
+    }
+
+    @Override
+    public List<Author> getAuthorsToBeAddedByBookId(int bookId) {
+        String sql = "SELECT authors.\"id\", authors.first_name, authors.last_name, authors.birth_date, authors.sex FROM books, authors, book_author WHERE books.\"id\" = book_author.book_id AND authors.\"id\" != book_author.author_id AND book_author.book_id = ?";
+        return JDBC_TEMPLATE.query(sql, new Object[]{bookId}, new AuthorMapper());
+    }
+
+    @Override
+    public Author getAuthorByName(String name) {
+        String sql = "SELECT * FROM authors WHERE first_name=?";
+        return JDBC_TEMPLATE.query(sql, new Object[]{name}, new AuthorMapper()).stream().findAny().orElse(null);
+    }
+
+    @Override
+    public void createAuthor(Author author) {
+        String sql = "INSERT INTO authors VALUES(default, ?, ?, ?, ?)";
+        JDBC_TEMPLATE.update(sql, author.getFirstName(), author.getLastName(), author.getBirthDate(), author.getSex());
+    }
+
+    @Override
+    public void updateAuthor(int id, Author author) {
+        String sql = "UPDATE authors SET first_name=?, last_name=?, birth_date=?, sex=? WHERE id=?";
+        JDBC_TEMPLATE.update(sql, author.getFirstName(), author.getLastName(), author.getBirthDate(), author.getSex(), id);
+    }
+
+    @Override
+    public void deleteAuthor(int id) {
+        String sql1 = "DELETE FROM books USING book_author WHERE book_author.\"book_id\"=books.\"id\" AND book_author.\"author_id\"=?";
+        String sql2 = "DELETE FROM authors WHERE id=?";
+        JDBC_TEMPLATE.update(sql1, id);
+        JDBC_TEMPLATE.update(sql2, id);
+    }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Edit</title>
+        <style>
+            a {
+                text-decoration: none;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Edit book</h1>
+        <br>
+        <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
+            <label for="name">Book name: </label>
+            <input type="text" th:field="*{name}" id="name" required>
+            <span style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error</span>
+            <br>
+            <label for="yearOfPublication">Year of publication: </label>
+            <input type="number" th:field="*{yearOfPublication}" id="yearOfPublication" required>
+            <span style="color:red" th:if="${#fields.hasErrors('yearOfPublication')}" th:errors="*{yearOfPublication}">error</span>
+            <br>
+            <label for="publisher">Publisher: </label>
+            <input type="text" th:field="*{publisher}" id="publisher" required>
+            <span style="color:red" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">error</span>
+            <br>
+            <br>
+            <input type="submit" value="Edit">
+        </form>
+        <form th:method="GET" th:action="@{/books/{id}(id=${book.getId()})}">
+            <input type="submit" value="Cancel">
+        </form>
+        <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+            <input type="submit" value="Delete">
+        </form>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Add a new book</title>
+        <style>
+            a {
+                text-decoration: none;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Add a new book</h1>
+        <br>
+        <form th:method="POST" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
+            <label for="name">Enter book name: </label>
+            <input type="text" th:field="*{name}" id="name" required>
+            <span style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error</span>
+            <br>
+            <label for="bookAuthor">Select author:</label>
+            <button type="button"><a href="/authors/add">Add new author</a></button>
+            <span style="color:red" th:if="${#fields.hasErrors('bookAuthorId')}" th:errors="*{bookAuthorId}">error</span>
+            <div th:each="author : ${authors}">
+                <input type="radio" th:text="${author.getFirstName() + ' ' + author.getLastName()}" th:field="*{bookAuthorId}" th:value="${author.getId()}" id="bookAuthor" required>
+            </div>
+            <br>
+            <label for="yearOfPublication">Enter year of publication:</label>
+            <input type="number" th:field="*{yearOfPublication}" id="yearOfPublication" required>
+            <span style="color:red" th:if="${#fields.hasErrors('yearOfPublication')}" th:errors="*{yearOfPublication}">error</span>
+            <br>
+            <label for="publisher">Enter publisher:</label>
+            <input type="text" th:field="*{publisher}" id="publisher" required>
+            <span style="color:red" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">error</span>
+            <br>
+            <br>
+            <input type="reset" value="Clear form">
+            <input type="submit" value="Add">
+            <button type="button"><a href="/books/add">Try again</a></button>
+        </form>
+    </body>
+</html>

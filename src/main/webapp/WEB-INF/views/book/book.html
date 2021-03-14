@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Book</title>
+        <style>
+            a {
+                text-decoration: none;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Book</h1>
+        <h3>This page contains information about current book</h3>
+        <div>
+            <a href="/">To main page</a>
+            <a href="/books">Browse books</a>
+            <a href="/authors">Browse authors</a>
+        </div>
+        <p th:text="${book.getName() + '. Published in ' + book.getYearOfPublication() + ' by ' + book.getPublisher()}">
+            book_name. Published in year_of_publication by publisher.
+        </p>
+        <span>
+            Written by:
+        </span>
+        <span th:each="author : ${authors}">
+            <a th:href="@{/authors/{id}(id=${author.getId()})}" th:text="${author.getFirstName() + ' ' + author.getLastName()}">
+                book_name, year_of_publication.
+            </a>
+        </span>
+        <br>
+        <br>
+        <button type="button"><a th:href="@{{id}/edit(id=${book.getId()})}">Edit book</a></button>
+        <button type="button"><a th:href="@{{id}/add-author(id=${book.getId()})}">Add author</a></button>
+        <button type="button"><a th:href="@{{id}/remove-author(id=${book.getId()})}">Remove author</a></button>
+    </body>
+</html>
