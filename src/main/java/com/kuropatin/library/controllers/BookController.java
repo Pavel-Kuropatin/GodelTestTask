@@ -68,7 +68,6 @@ public class BookController {
         if (bindingResult.hasErrors())
             return "book/bookadd";
         if (book.getBookAuthorId() == 0) {
-            System.out.println("book.getBookAuthorId() == 0");
             return "book/bookadd";
         }
         bookAuthorRepositoryImpl.createBookAuthor(book.getId(), book.getBookAuthorId());
