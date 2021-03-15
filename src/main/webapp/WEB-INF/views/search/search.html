@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <style>
+            a {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Search</h1>
+        <div>
+            <a href="/">To start page</a> |
+            <a href="/books">Browse books</a> |
+            <a href="/authors/add">Add a new author</a>
+        </div>
+        <h3>What do you want to find?</h3>
+        <form>
+            <p>
+                <input type="search" name="searchField" placeholder="Book search">
+                <input type="submit" value="Search">
+            </p>
+        </form>
+        <p th:each="book : ${books}">
+            <a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getName() + ', ' + book.getYearOfPublication() + '.'}">
+                book_name, year_of_publication.
+            </a>
+        </p>
+    </body>
+</html>

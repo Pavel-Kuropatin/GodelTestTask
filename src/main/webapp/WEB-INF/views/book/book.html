@@ -7,6 +7,10 @@
             a {
                 text-decoration: none;
             }
+            .listLink {
+                text-decoration: none;
+                padding-right: 10px;
+            }
         </style>
     </head>
     <body>
@@ -14,17 +18,15 @@
         <div>
             <a href="/">To start page</a> |
             <a href="/books">Browse books</a> |
-            <a href="/authors">Browse authors</a> |
+            <a href="/authors">Browse authors</a>
         </div>
         <h3>Information about this book</h3>
         <p th:text="${book.getName() + '. Published in ' + book.getYearOfPublication() + ' by ' + book.getPublisher()}">
             book_name. Published in year_of_publication by publisher.
         </p>
-        <span>
-            Written by:
-        </span>
+        <span>Written by:</span>
         <span th:each="author : ${authors}">
-            <a th:href="@{/authors/{id}(id=${author.getId()})}" th:text="${author.getFirstName() + ' ' + author.getLastName()}">
+            <a class="listLink" th:href="@{/authors/{id}(id=${author.getId()})}" th:text="${author.getFirstName() + ' ' + author.getLastName()}">
                 book_name, year_of_publication.
             </a>
         </span>
