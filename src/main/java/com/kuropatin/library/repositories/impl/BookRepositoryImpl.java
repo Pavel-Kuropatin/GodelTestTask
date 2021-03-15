@@ -1,8 +1,8 @@
-package com.kuropatin.library.repository.impl;
+package com.kuropatin.library.repositories.impl;
 
 import com.kuropatin.library.mappers.BookMapper;
 import com.kuropatin.library.models.Book;
-import com.kuropatin.library.repository.interfaces.BookRepository;
+import com.kuropatin.library.repositories.interfaces.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,7 +27,7 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public Book getBookByBookId(long id) {
         String sql = "SELECT * FROM books WHERE id=?";
-        return JDBC_TEMPLATE.query(sql, new Object[]{id}, new BookMapper()).stream().findAny().orElse(null);
+        return JDBC_TEMPLATE.query(sql, new BookMapper(), id).stream().findAny().orElse(null);
     }
 
     @Override
@@ -36,13 +36,13 @@ public class BookRepositoryImpl implements BookRepository {
                      "FROM books, authors, book_author " +
                      "WHERE books.id = book_author.book_id AND authors.id = book_author.author_id AND book_author.author_id = ? " +
                      "ORDER BY year_of_publication";
-        return JDBC_TEMPLATE.query(sql, new Object[]{authorId}, new BookMapper());
+        return JDBC_TEMPLATE.query(sql, new BookMapper(), authorId);
     }
 
     @Override
     public Book getBookByName(String name) {
         String sql = "SELECT * FROM books WHERE book_name=?";
-        return JDBC_TEMPLATE.query(sql, new Object[]{name}, new BookMapper()).stream().findAny().orElse(null);
+        return JDBC_TEMPLATE.query(sql, new BookMapper(), name).stream().findAny().orElse(null);
     }
 
     @Override

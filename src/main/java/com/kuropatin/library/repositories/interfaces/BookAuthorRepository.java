@@ -1,7 +1,4 @@
-package com.kuropatin.library.repository.interfaces;
-
-import com.kuropatin.library.models.Author;
-import com.kuropatin.library.models.Book;
+package com.kuropatin.library.repositories.interfaces;
 
 public interface BookAuthorRepository {
 

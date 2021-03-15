@@ -1,8 +1,8 @@
-package com.kuropatin.library.repository.impl;
+package com.kuropatin.library.repositories.impl;
 
 import com.kuropatin.library.mappers.AuthorMapper;
 import com.kuropatin.library.models.Author;
-import com.kuropatin.library.repository.interfaces.AuthorRepository;
+import com.kuropatin.library.repositories.interfaces.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,7 +27,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public Author getAuthorByAuthorId(long id) {
         String sql = "SELECT * FROM authors WHERE id=?";
-        return JDBC_TEMPLATE.query(sql, new Object[]{id}, new AuthorMapper()).stream().findAny().orElse(null);
+        return JDBC_TEMPLATE.query(sql, new AuthorMapper(), id).stream().findAny().orElse(null);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                      "FROM books, authors, book_author " +
                      "WHERE books.id = book_author.book_id AND authors.id = book_author.author_id AND book_author.book_id = ? " +
                      "ORDER BY first_name";
-        return JDBC_TEMPLATE.query(sql, new Object[]{bookId}, new AuthorMapper());
+        return JDBC_TEMPLATE.query(sql, new AuthorMapper(), bookId);
     }
 
     @Override
@@ -48,13 +48,13 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                      "FROM authors, books, book_author " +
                      "WHERE books.id = book_author.book_id AND book_author.book_id = books.id AND authors.id = book_author.author_id AND book_author.book_id = ?) " +
                      "ORDER BY first_name";
-        return JDBC_TEMPLATE.query(sql, new Object[]{bookId}, new AuthorMapper());
+        return JDBC_TEMPLATE.query(sql, new AuthorMapper(), bookId);
     }
 
     @Override
     public Author getAuthorByName(String firstName, String lastName) {
         String sql = "SELECT * FROM authors WHERE first_name=? AND last_name=?";
-        return JDBC_TEMPLATE.query(sql, new Object[]{firstName, lastName}, new AuthorMapper()).stream().findAny().orElse(null);
+        return JDBC_TEMPLATE.query(sql, new AuthorMapper(), firstName, lastName).stream().findAny().orElse(null);
     }
 
     @Override
