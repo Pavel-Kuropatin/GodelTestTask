@@ -7,15 +7,15 @@ public interface BookRepository {
 
     List<Book> getAllBooks();
 
-    Book getBookByBookId(int id);
+    Book getBookByBookId(long id);
 
-    List<Book> getBooksByAuthorId(int authorId);
+    List<Book> getBooksByAuthorId(long authorId);
 
     Book getBookByName(String name);
 
     void createBook(Book book);
 
-    void updateBook(int id, Book book);
+    void updateBook(long id, Book book);
 
-    void deleteBook(int id);
+    void deleteBook(long id);
 }

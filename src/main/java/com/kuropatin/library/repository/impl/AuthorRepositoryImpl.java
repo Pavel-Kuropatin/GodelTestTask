@@ -25,27 +25,34 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public Author getAuthorByAuthorId(int id) {
+    public Author getAuthorByAuthorId(long id) {
         String sql = "SELECT * FROM authors WHERE id=?";
         return JDBC_TEMPLATE.query(sql, new Object[]{id}, new AuthorMapper()).stream().findAny().orElse(null);
     }
 
     @Override
-    public List<Author> getAuthorsByBookId(int bookId) {
-        String sql = "SELECT authors.\"id\", authors.first_name, authors.last_name, authors.birth_date, authors.sex FROM books, authors, book_author WHERE books.\"id\" = book_author.book_id AND authors.\"id\" = book_author.author_id AND book_author.book_id = ?";
+    public List<Author> getAuthorsByBookId(long bookId) {
+        String sql = "SELECT authors.id, authors.first_name, authors.last_name, authors.birth_date, authors.sex " +
+                     "FROM books, authors, book_author " +
+                     "WHERE books.id = book_author.book_id AND authors.id = book_author.author_id AND book_author.book_id = ?";
         return JDBC_TEMPLATE.query(sql, new Object[]{bookId}, new AuthorMapper());
     }
 
     @Override
-    public List<Author> getAuthorsToBeAddedByBookId(int bookId) {
-        String sql = "SELECT authors.\"id\", authors.first_name, authors.last_name, authors.birth_date, authors.sex FROM books, authors, book_author WHERE books.\"id\" = book_author.book_id AND authors.\"id\" != book_author.author_id AND book_author.book_id = ?";
+    public List<Author> getAuthorsToBeAddedByBookId(long bookId) {
+        String sql = "SELECT authors.id, authors.first_name, authors.last_name, authors.birth_date, authors.sex " +
+                     "FROM authors " +
+                     "WHERE authors.id NOT IN (" +
+                     "SELECT authors.id " +
+                     "FROM authors, books, book_author " +
+                     "WHERE books.id = book_author.book_id AND book_author.book_id = books.id AND authors.id = book_author.author_id AND book_author.book_id = ?)";
         return JDBC_TEMPLATE.query(sql, new Object[]{bookId}, new AuthorMapper());
     }
 
     @Override
-    public Author getAuthorByName(String name) {
-        String sql = "SELECT * FROM authors WHERE first_name=?";
-        return JDBC_TEMPLATE.query(sql, new Object[]{name}, new AuthorMapper()).stream().findAny().orElse(null);
+    public Author getAuthorByName(String firstName, String lastName) {
+        String sql = "SELECT * FROM authors WHERE first_name=? AND last_name=?";
+        return JDBC_TEMPLATE.query(sql, new Object[]{firstName, lastName}, new AuthorMapper()).stream().findAny().orElse(null);
     }
 
     @Override
@@ -55,14 +62,14 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public void updateAuthor(int id, Author author) {
+    public void updateAuthor(long id, Author author) {
         String sql = "UPDATE authors SET first_name=?, last_name=?, birth_date=?, sex=? WHERE id=?";
         JDBC_TEMPLATE.update(sql, author.getFirstName(), author.getLastName(), author.getBirthDate(), author.getSex(), id);
     }
 
     @Override
-    public void deleteAuthor(int id) {
-        String sql1 = "DELETE FROM books USING book_author WHERE book_author.\"book_id\"=books.\"id\" AND book_author.\"author_id\"=?";
+    public void deleteAuthor(long id) {
+        String sql1 = "DELETE FROM books USING book_author WHERE book_author.book_id=books.id AND book_author.author_id=?";
         String sql2 = "DELETE FROM authors WHERE id=?";
         JDBC_TEMPLATE.update(sql1, id);
         JDBC_TEMPLATE.update(sql2, id);

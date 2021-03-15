@@ -24,7 +24,8 @@ public class BookAuthorRepositoryImpl implements BookAuthorRepository {
     }
 
     @Override
-    public void updateBookAuthor(Book book, Author author) {
-
+    public void deleteBookAuthor(long bookId, long authorId) {
+        String sql = "DELETE FROM book_author WHERE book_id=? AND author_id=?";
+        JDBC_TEMPLATE.update(sql, bookId, authorId);
     }
 }

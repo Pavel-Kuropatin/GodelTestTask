@@ -25,14 +25,14 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Book getBookByBookId(int id) {
+    public Book getBookByBookId(long id) {
         String sql = "SELECT * FROM books WHERE id=?";
         return JDBC_TEMPLATE.query(sql, new Object[]{id}, new BookMapper()).stream().findAny().orElse(null);
     }
 
     @Override
-    public List<Book> getBooksByAuthorId(int authorId) {
-        String sql = "SELECT books.\"id\", books.book_name, books.year_of_publication, books.publisher FROM books, authors, book_author WHERE books.\"id\" = book_author.book_id AND authors.\"id\" = book_author.author_id AND book_author.author_id = ?";
+    public List<Book> getBooksByAuthorId(long authorId) {
+        String sql = "SELECT books.id, books.book_name, books.year_of_publication, books.publisher FROM books, authors, book_author WHERE books.id = book_author.book_id AND authors.id = book_author.author_id AND book_author.author_id = ?";
         return JDBC_TEMPLATE.query(sql, new Object[]{authorId}, new BookMapper());
     }
 
@@ -49,13 +49,13 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public void updateBook(int id, Book book) {
+    public void updateBook(long id, Book book) {
         String sql = "UPDATE books SET book_name=?, year_of_publication=?, publisher=? WHERE id=?";
         JDBC_TEMPLATE.update(sql, book.getName(), book.getYearOfPublication(), book.getPublisher(), id);
     }
 
     @Override
-    public void deleteBook(int id) {
+    public void deleteBook(long id) {
         String sql = "DELETE FROM books WHERE id=?";
         JDBC_TEMPLATE.update(sql, id);
     }
