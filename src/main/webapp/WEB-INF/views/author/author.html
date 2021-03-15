@@ -6,23 +6,24 @@
         <style>
             a {
                 text-decoration: none;
-                margin-right: 10px;
             }
         </style>
     </head>
     <body>
         <h1>Author</h1>
-        <h3>This page contains information about this author</h3>
         <div>
-            <a href="/">To main page</a>
-            <a href="/books">Browse books</a>
-            <a href="/authors">Browse authors</a>
+            <a href="/">To start page</a> |
+            <a href="/books">Browse books</a> |
+            <a href="/authors">Browse authors</a> |
         </div>
+        <h3>Information about this author</h3>
         <p th:text="${author.getFirstName() + ' ' + author.getLastName() + '. Born ' + author.getBirthDate() + '. Sex' + ' ' + author.getSex() + '.'}">
             first_name last_name. Born birth_date. Sex sex.
         </p>
         <div>
-            <a th:href="@{{id}/edit(id=${author.getId()})}">Edit author</a>
+            <button type="button">
+                <a th:href="@{{id}/edit(id=${author.getId()})}">Edit author</a>
+            </button>
         </div>
         <h3>Books by this author:</h3>
         <p th:each="book : ${books}">

@@ -6,12 +6,12 @@
         <style>
             a {
                 text-decoration: none;
-                margin-right: 10px;
             }
         </style>
     </head>
     <body>
         <h1>Add a new author</h1>
+        <h3>Here you can add a new author</h3>
         <br>
         <form th:method="POST" th:action="@{/authors/{id}(id=${author.getId()})}" th:object="${author}">
             <label for="firstName">Enter first name:</label>

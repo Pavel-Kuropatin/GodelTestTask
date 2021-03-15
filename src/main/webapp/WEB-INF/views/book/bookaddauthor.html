@@ -6,43 +6,37 @@
         <style>
             a {
                 text-decoration: none;
-                margin-right: 10px;
             }
         </style>
     </head>
     <body>
         <h1>Add author to book</h1>
+        <h3>Here you can add another book author</h3>
         <br>
         <p th:text="${book.getName() + '. Published in ' + book.getYearOfPublication() + ' by ' + book.getPublisher()}">
             book_name. Published in year_of_publication by publisher.
         </p>
-        <span>
-            Written by:
-        </span>
+        <span>Written by:</span>
         <span th:each="author : ${authors}">
             <a th:href="@{/authors/{id}(id=${author.getId()})}" th:text="${author.getFirstName() + ' ' + author.getLastName()}">
-                book_name, year_of_publication.
+                first_name last name
             </a>
         </span>
+        <br>
+        <br>
         <form th:method="POST" th:action="@{/books/{id}/add-author(id=${book.getId()})}" th:object="${book}">
-<!--            -->
             <input type="hidden" th:field="*{name}">
-            <br>
             <input type="hidden" th:field="*{yearOfPublication}">
-            <br>
             <input type="hidden" th:field="*{publisher}">
-            <br>
-<!--            -->
-            <label for="bookAuthor">Select author:</label>
+            <label for="bookAuthor">Select author to add:</label>
             <button type="button"><a href="/authors/add">Add new author</a></button>
             <span style="color:red" th:if="${#fields.hasErrors('bookAuthorId')}" th:errors="*{bookAuthorId}">error</span>
             <div th:each="author : ${authorsToBeAdded}">
                 <input type="radio" th:text="${author.getFirstName() + ' ' + author.getLastName()}" th:field="*{bookAuthorId}" th:value="${author.getId()}" id="bookAuthor" required>
             </div>
             <br>
-            <input type="reset" value="Clear form">
             <input type="submit" value="Add">
-            <button type="button"><a href="/books/add">Try again</a></button>
+            <button type="button"><a th:href="@{/books/{id}/add-author(id=${book.getId()})}">Try again</a></button>
         </form>
     </body>
 </html>

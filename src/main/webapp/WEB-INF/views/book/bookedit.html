@@ -6,12 +6,12 @@
         <style>
             a {
                 text-decoration: none;
-                margin-right: 10px;
             }
         </style>
     </head>
     <body>
         <h1>Edit book</h1>
+        <h3>Here you can edit book information</h3>
         <br>
         <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
             <label for="name">Book name: </label>
@@ -29,9 +29,9 @@
             <br>
             <input type="submit" value="Edit">
         </form>
-        <form th:method="GET" th:action="@{/books/{id}(id=${book.getId()})}">
-            <input type="submit" value="Cancel">
-        </form>
+        <button type="button">
+            <a th:href="@{/books/{id}(id=${book.getId()})}">Cancel</a>
+        </button>
         <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
             <input type="submit" value="Delete">
         </form>

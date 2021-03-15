@@ -6,18 +6,17 @@
         <style>
             a {
                 text-decoration: none;
-                margin-right: 10px;
             }
         </style>
     </head>
     <body>
         <h1>Book</h1>
-        <h3>This page contains information about current book</h3>
         <div>
-            <a href="/">To main page</a>
-            <a href="/books">Browse books</a>
-            <a href="/authors">Browse authors</a>
+            <a href="/">To start page</a> |
+            <a href="/books">Browse books</a> |
+            <a href="/authors">Browse authors</a> |
         </div>
+        <h3>Information about this book</h3>
         <p th:text="${book.getName() + '. Published in ' + book.getYearOfPublication() + ' by ' + book.getPublisher()}">
             book_name. Published in year_of_publication by publisher.
         </p>

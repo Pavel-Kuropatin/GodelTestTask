@@ -6,20 +6,18 @@
         <style>
             a {
                 text-decoration: none;
-                margin-right: 10px;
             }
         </style>
     </head>
     <body>
         <h1>Book list</h1>
-        <h3>This is the list of all available books</h3>
-        <div>
-            <a href="/">To main page</a>
-            <a href="/authors">Browse authors</a>
-            <a href="/books/add">Add a new book</a>
+                <div>
+            <a href="/">To start page</a> |
+            <a href="/authors">Browse authors</a> |
+            <a href="/books/add">Add a new book</a> |
             <a href="/search">Search</a>
         </div>
-        <br>
+        <h3>List of all available books</h3>
         <p th:each="book : ${books}">
             <a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getName() + ', ' + book.getYearOfPublication() + '.'}">
                 book_name, year_of_publication.
