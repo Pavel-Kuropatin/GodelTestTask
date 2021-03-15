@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Remove author from book authors</title>
+        <style>
+            a {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Remove author from book authors</h1>
+        <h3>Here you can remove author book authors</h3>
+        <br>
+        <p th:text="${book.getName() + '. Published in ' + book.getYearOfPublication() + ' by ' + book.getPublisher()}">
+            book_name. Published in year_of_publication by publisher.
+        </p>
+        <span>Written by:</span>
+        <span th:each="author : ${authors}">
+            <a th:href="@{/authors/{id}(id=${author.getId()})}" th:text="${author.getFirstName() + ' ' + author.getLastName()}">
+                first_name last name
+            </a>
+        </span>
+        <br>
+        <br>
+        <form th:method="DELETE" th:action="@{/books/{id}/remove-author(id=${book.getId()})}" th:object="${book}">
+            <input type="hidden" th:field="*{name}">
+            <input type="hidden" th:field="*{yearOfPublication}">
+            <input type="hidden" th:field="*{publisher}">
+            <label for="bookAuthor">Select author to remove:</label>
+            <span style="color:red" th:if="${#fields.hasErrors('bookAuthorId')}" th:errors="*{bookAuthorId}">error</span>
+            <div th:each="author : ${authors}">
+                <input type="radio" th:text="${author.getFirstName() + ' ' + author.getLastName()}" th:field="*{bookAuthorId}" th:value="${author.getId()}" id="bookAuthor" required>
+            </div>
+            <br>
+            <input type="submit" value="Remove">
+            <button type="button"><a href="@{/books/{id}/remove-author(id=${book.getId()})}">Try again</a></button>
+        </form>
+    </body>
+</html>
