@@ -1,10 +1,12 @@
 package com.kuropatin.library.models;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 public class Book {
 
-    /** @final constants define the names of fields in the database */
+    /** constants define the names of fields in the database */
     public static final String BOOK_id = "id";
     public static final String BOOK_name = "book_name";
     public static final String BOOK_yearOfPublication = "year_of_publication";
@@ -12,16 +14,14 @@ public class Book {
 
     private long id;
 
-    @NotEmpty(message = "Book name should not be empty")
-    @Size(max = 255, message = "Name should be between 1 and 255 characters")
+    @Size(max = 255, message = "Name should be less than 255 characters")
     private String name;
 
-    @Min(value = 1, message = "Year of publication should be more that 0")
+    @Min(value = 1, message = "Year of publication should be more than 0")
     @Max(value = 2021, message = "Enter valid year")
     private int yearOfPublication;
 
-    @NotEmpty(message = "Publisher name should not be empty")
-    @Size(max = 255, message = "Publisher mame should be between 1 and 255 characters")
+    @Size(max = 255, message = "Publisher name should be less than 255 characters")
     private String publisher;
 
     /** Variable for specifying the book author and validation, does not exist in the database */
