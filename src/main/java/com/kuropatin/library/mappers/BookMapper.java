@@ -4,7 +4,6 @@ import com.kuropatin.library.models.Book;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import static com.kuropatin.library.models.Book.*;
 
 public class BookMapper implements RowMapper<Book> {

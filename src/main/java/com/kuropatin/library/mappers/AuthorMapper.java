@@ -4,7 +4,6 @@ import com.kuropatin.library.models.Author;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import static com.kuropatin.library.models.Author.*;
 
 public class AuthorMapper implements RowMapper<Author> {
