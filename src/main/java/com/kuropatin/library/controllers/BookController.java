@@ -1,17 +1,15 @@
 package com.kuropatin.library.controllers;
 
-import com.kuropatin.library.models.Author;
-import com.kuropatin.library.repository.impl.AuthorRepositoryImpl;
-import com.kuropatin.library.repository.impl.BookAuthorRepositoryImpl;
-import com.kuropatin.library.repository.impl.BookRepositoryImpl;
 import com.kuropatin.library.models.Book;
+import com.kuropatin.library.repository.impl.AuthorRepositoryImpl;
+import com.kuropatin.library.repository.impl.BookRepositoryImpl;
+import com.kuropatin.library.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -19,7 +17,7 @@ public class BookController {
 
     private final BookRepositoryImpl bookRepositoryImpl;
     private final AuthorRepositoryImpl authorRepositoryImpl;
-    private final BookAuthorRepositoryImpl bookAuthorRepositoryImpl;
+    private final BookService bookService;
     private final String pathVariableId = "id";
     private final String modelAttributeBook = "book";
     private final String modelAttributeBooks = "books";
@@ -27,10 +25,10 @@ public class BookController {
     private final String modelAttributeAuthorsToBeAdded = "authorsToBeAdded";
 
     @Autowired
-    public BookController(BookRepositoryImpl bookRepositoryImpl, AuthorRepositoryImpl authorRepositoryImpl, BookAuthorRepositoryImpl bookAuthorRepositoryImpl) {
+    public BookController(BookRepositoryImpl bookRepositoryImpl, AuthorRepositoryImpl authorRepositoryImpl, BookService bookService) {
         this.bookRepositoryImpl = bookRepositoryImpl;
         this.authorRepositoryImpl = authorRepositoryImpl;
-        this.bookAuthorRepositoryImpl = bookAuthorRepositoryImpl;
+        this.bookService = bookService;
     }
 
     /**
@@ -103,7 +101,7 @@ public class BookController {
      */
     @PostMapping("/{id}/add-author")
     public String getViewBookOnAuthorAdd(@ModelAttribute(modelAttributeBook) Book book) {
-        bookAuthorRepositoryImpl.createBookAuthor(book.getId(), book.getBookAuthorId());
+        bookService.addBookAuthor(book);
         return "redirect:/books/" + book.getId();
     }
 
@@ -114,16 +112,13 @@ public class BookController {
      *         redirects to /books/{id} on successful creation
      */
     @PostMapping("/{id}")
-    public String getViewBooksOnCreate(@ModelAttribute(modelAttributeBook) @Valid Book book, @PathVariable(pathVariableId) long id,  BindingResult bindingResult) {
+    public String getViewBooksOnCreate(@ModelAttribute(modelAttributeBook) @Valid Book book,  BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "book/bookadd";
-        Book bookForValidation = bookRepositoryImpl.getBookByName(book.getName());
-        if (bookForValidation != null)
+        if (bookService.isBookExists(book.getName()))
             return "book/bookadd";
-        Book bookForId = bookRepositoryImpl.getBookByName(book.getName());
-        bookRepositoryImpl.createBook(book);
-        bookAuthorRepositoryImpl.createBookAuthor(bookForId.getId(), book.getBookAuthorId());
-        return "redirect:/books/" + bookForId.getId();
+        bookService.createBook(book);
+        return "redirect:/books/" + bookService.getBookId(book);
     }
 
     /**
@@ -135,7 +130,7 @@ public class BookController {
     public String getViewBooksOnUpdate(@ModelAttribute(modelAttributeBook) @Valid Book book, @PathVariable(pathVariableId) long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "book/bookedit";
-        bookRepositoryImpl.updateBook(id, book);
+        bookService.updateBook(id, book);
         return "redirect:/books/" + id;
     }
 
@@ -146,10 +141,9 @@ public class BookController {
      */
     @DeleteMapping("/{id}/remove-author")
     public String getViewBookOnAuthorRemove(@ModelAttribute(modelAttributeBook) Book book, @PathVariable(pathVariableId) long id, Model model) {
-        List<Author> listOfBookAuthors = authorRepositoryImpl.getAuthorsByBookId(id);
-        if (listOfBookAuthors.size() < 2)
+        if (bookService.isLastAuthor(id))
             return "redirect:/books/" + id;
-        bookAuthorRepositoryImpl.deleteBookAuthor(book.getId(), book.getBookAuthorId());
+        bookService.removeBookAuthor(book);
         return "redirect:/books/" + id;
     }
 
@@ -159,7 +153,7 @@ public class BookController {
      */
     @DeleteMapping("/{id}")
     public String getViewBooksOnDelete(@PathVariable(pathVariableId) long id) {
-        bookRepositoryImpl.deleteBook(id);
+        bookService.deleteBook(id);
         return "redirect:/books";
     }
 }

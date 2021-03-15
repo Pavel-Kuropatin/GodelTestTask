@@ -3,6 +3,7 @@ package com.kuropatin.library.controllers;
 import com.kuropatin.library.repository.impl.AuthorRepositoryImpl;
 import com.kuropatin.library.models.Author;
 import com.kuropatin.library.repository.impl.BookRepositoryImpl;
+import com.kuropatin.library.services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,15 +17,17 @@ public class AuthorController {
 
     private final AuthorRepositoryImpl authorRepositoryImpl;
     private final BookRepositoryImpl bookRepositoryImpl;
+    private final AuthorService authorService;
     private final String pathVariableId = "id";
     private final String modelAttributeAuthor = "author";
     private final String modelAttributeAuthors = "authors";
     private final String modelAttributeBooks = "books";
 
     @Autowired
-    public AuthorController(AuthorRepositoryImpl authorRepositoryImpl, BookRepositoryImpl bookRepositoryImpl) {
+    public AuthorController(AuthorRepositoryImpl authorRepositoryImpl, BookRepositoryImpl bookRepositoryImpl, AuthorService authorService) {
         this.authorRepositoryImpl = authorRepositoryImpl;
         this.bookRepositoryImpl = bookRepositoryImpl;
+        this.authorService = authorService;
     }
 
     /**
@@ -76,12 +79,10 @@ public class AuthorController {
     public String getViewAuthorsOnCreate(@ModelAttribute(modelAttributeAuthor) @Valid Author author, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "author/authoradd";
-        Author authorForValidation = authorRepositoryImpl.getAuthorByName(author.getFirstName(), author.getLastName());
-        if (authorForValidation != null)
+        if (authorService.isAuthorExists(author))
             return "author/authoradd";
-        authorRepositoryImpl.createAuthor(author);
-        Author authorForId = authorRepositoryImpl.getAuthorByName(author.getFirstName(), author.getLastName());
-        return "redirect:/authors/" + authorForId.getId();
+        authorService.createAuthor(author);
+        return "redirect:/authors/" + authorService.getAuthorId(author);
     }
 
     /**
@@ -93,7 +94,7 @@ public class AuthorController {
     public String getViewAuthorsOnUpdate(@ModelAttribute(modelAttributeAuthor) @Valid Author author, @PathVariable(pathVariableId) long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "author/authoredit";
-        authorRepositoryImpl.updateAuthor(id, author);
+        authorService.updateAuthor(id, author);
         return "redirect:/authors/" + id;
     }
 
@@ -103,7 +104,7 @@ public class AuthorController {
      */
     @DeleteMapping("/{id}")
     public String getViewAuthorsOnDelete(@PathVariable(pathVariableId) long id) {
-        authorRepositoryImpl.deleteAuthor(id);
+        authorService.deleteAuthor(id);
         return "redirect:/authors";
     }
 }
