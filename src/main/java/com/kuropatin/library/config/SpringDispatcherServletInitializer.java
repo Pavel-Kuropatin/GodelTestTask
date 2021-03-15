@@ -5,14 +5,12 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-
 public class SpringDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
 
-    /** @return returns empty class because root config does not not exist, can also return null as said in the manual */
+    /** @return null because method is @Nullable */
     @Override
     protected Class<?>[] getRootConfigClasses() {
-
-        return new Class[] {};
+        return null;
     }
 
     @Override
