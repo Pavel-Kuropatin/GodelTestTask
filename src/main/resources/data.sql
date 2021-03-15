@@ -22,23 +22,27 @@ CREATE TABLE book_author(
     FOREIGN KEY (author_id) REFERENCES authors (id)
     );
 
-INSERT INTO books VALUES(default, 'The Shining', 1977, 'Doubleday');                  --1
-INSERT INTO books VALUES(default, 'Pet Sematary', 1983, 'Doubleday');                 --2
-INSERT INTO books VALUES(default, 'It', 1986, 'Viking');                              --3
-INSERT INTO books VALUES(default, 'Misery', 1987, 'Doubleday');                       --4
-INSERT INTO books VALUES(default, 'The Green Mile', 1996, 'Signet Books');            --5
-INSERT INTO books VALUES(default, '11/22/63', 2011, 'Scribner');                      --6
-INSERT INTO books VALUES(default, 'Unfinished Portrait', 1934, 'Doubleday');          --7
-INSERT INTO books VALUES(default, 'Murder Is Easy', 1939, 'Dodd, Mead & Co');         --8
-INSERT INTO books VALUES(default, 'The Burden', 1956, 'Dell Publishing');             --9
-INSERT INTO books VALUES(default, 'Passenger to Frankfurt', 1970, 'Dodd, Mead & Co'); --10
-INSERT INTO books VALUES(default, 'Some Book', 1970, 'Some Publisher');               --11
+INSERT INTO books VALUES(default, 'The Shining', 1977, 'Doubleday');
+INSERT INTO books VALUES(default, 'Pet Sematary', 1983, 'Doubleday');
+INSERT INTO books VALUES(default, 'It', 1986, 'Viking');
+INSERT INTO books VALUES(default, 'Misery', 1987, 'Doubleday');
+INSERT INTO books VALUES(default, 'The Green Mile', 1996, 'Signet Books');
+INSERT INTO books VALUES(default, '11/22/63', 2011, 'Scribner');
+INSERT INTO books VALUES(default, 'Unfinished Portrait', 1934, 'Doubleday');
+INSERT INTO books VALUES(default, 'Murder Is Easy', 1939, 'Dodd, Mead & Co');
+INSERT INTO books VALUES(default, 'The Burden', 1956, 'Dell Publishing');
+INSERT INTO books VALUES(default, 'Passenger to Frankfurt', 1970, 'Dodd, Mead & Co');
+INSERT INTO books VALUES(default, 'Head First HTML5 Programming', 2011, 'OReilly Media, Inc.');
+INSERT INTO books VALUES(default, 'Head First HTML and CSS, 2nd Edition', 2012, 'OReilly Media, Inc.');
+INSERT INTO books VALUES(default, 'Head First Java, 2nd Edition', 2005, 'OReilly Media, Inc.');
+INSERT INTO books VALUES(default, 'Head First Design Patterns', 2015, 'OReilly Media, Inc.');
+INSERT INTO books VALUES(default, 'Clean Code : A Handbook of Agile Software Craftsmanship', 2019, 'Pearson Education');
 
 INSERT INTO authors VALUES(default, 'Stephen', 'King', '21.09.1947', 'male');
 INSERT INTO authors VALUES(default, 'Agatha', 'Christie', '15.09.1890', 'female');
-INSERT INTO authors VALUES(default, 'First', 'Author', '29.02.1964', 'undefined');
-INSERT INTO authors VALUES(default, 'Second', 'Author', '09.05.1945', 'undefined');
-INSERT INTO authors VALUES(default, 'Third', 'Author', '11.09.2001', 'undefined');
+INSERT INTO authors VALUES(default, 'Eric', 'Freeman', '01.01.1970', 'male');
+INSERT INTO authors VALUES(default, 'Elisabeth', 'Robson', '01.01.1970', 'female');
+INSERT INTO authors VALUES(default, 'Robert', 'Martin', '05.11.1952', 'male');
 
 INSERT INTO book_author VALUES(1, 1);
 INSERT INTO book_author VALUES(2, 1);
@@ -52,4 +56,10 @@ INSERT INTO book_author VALUES(9, 2);
 INSERT INTO book_author VALUES(10, 2);
 INSERT INTO book_author VALUES(11, 3);
 INSERT INTO book_author VALUES(11, 4);
-INSERT INTO book_author VALUES(11, 5);
+INSERT INTO book_author VALUES(12, 3);
+INSERT INTO book_author VALUES(12, 4);
+INSERT INTO book_author VALUES(13, 3);
+INSERT INTO book_author VALUES(13, 4);
+INSERT INTO book_author VALUES(14, 3);
+INSERT INTO book_author VALUES(14, 4);
+INSERT INTO book_author VALUES(15, 5);
