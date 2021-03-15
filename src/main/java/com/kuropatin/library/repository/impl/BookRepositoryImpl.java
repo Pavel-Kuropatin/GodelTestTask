@@ -32,7 +32,10 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public List<Book> getBooksByAuthorId(long authorId) {
-        String sql = "SELECT books.id, books.book_name, books.year_of_publication, books.publisher FROM books, authors, book_author WHERE books.id = book_author.book_id AND authors.id = book_author.author_id AND book_author.author_id = ?";
+        String sql = "SELECT books.id, books.book_name, books.year_of_publication, books.publisher " +
+                     "FROM books, authors, book_author " +
+                     "WHERE books.id = book_author.book_id AND authors.id = book_author.author_id AND book_author.author_id = ? " +
+                     "ORDER BY year_of_publication";
         return JDBC_TEMPLATE.query(sql, new Object[]{authorId}, new BookMapper());
     }
 

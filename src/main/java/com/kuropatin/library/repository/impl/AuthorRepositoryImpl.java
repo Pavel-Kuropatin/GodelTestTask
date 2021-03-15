@@ -34,7 +34,8 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     public List<Author> getAuthorsByBookId(long bookId) {
         String sql = "SELECT authors.id, authors.first_name, authors.last_name, authors.birth_date, authors.sex " +
                      "FROM books, authors, book_author " +
-                     "WHERE books.id = book_author.book_id AND authors.id = book_author.author_id AND book_author.book_id = ?";
+                     "WHERE books.id = book_author.book_id AND authors.id = book_author.author_id AND book_author.book_id = ? " +
+                     "ORDER BY first_name";
         return JDBC_TEMPLATE.query(sql, new Object[]{bookId}, new AuthorMapper());
     }
 
@@ -45,7 +46,8 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                      "WHERE authors.id NOT IN (" +
                      "SELECT authors.id " +
                      "FROM authors, books, book_author " +
-                     "WHERE books.id = book_author.book_id AND book_author.book_id = books.id AND authors.id = book_author.author_id AND book_author.book_id = ?)";
+                     "WHERE books.id = book_author.book_id AND book_author.book_id = books.id AND authors.id = book_author.author_id AND book_author.book_id = ?) " +
+                     "ORDER BY first_name";
         return JDBC_TEMPLATE.query(sql, new Object[]{bookId}, new AuthorMapper());
     }
 
