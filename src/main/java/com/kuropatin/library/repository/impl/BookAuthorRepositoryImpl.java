@@ -1,7 +1,5 @@
 package com.kuropatin.library.repository.impl;
 
-import com.kuropatin.library.models.Author;
-import com.kuropatin.library.models.Book;
 import com.kuropatin.library.repository.interfaces.BookAuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
