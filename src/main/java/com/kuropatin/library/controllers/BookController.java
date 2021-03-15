@@ -1,5 +1,6 @@
 package com.kuropatin.library.controllers;
 
+import com.kuropatin.library.models.Author;
 import com.kuropatin.library.repository.impl.AuthorRepositoryImpl;
 import com.kuropatin.library.repository.impl.BookAuthorRepositoryImpl;
 import com.kuropatin.library.repository.impl.BookRepositoryImpl;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -85,6 +87,17 @@ public class BookController {
     }
 
     /**
+     * Method adds to model book entity, list of book authors
+     * @return bookremoveauthor.html page
+     */
+    @GetMapping("/{id}/remove-author")
+    public String getViewBookAuthorRemove(@PathVariable(pathVariableId) long id, Model model) {
+        model.addAttribute(modelAttributeBook, bookRepositoryImpl.getBookByBookId(id));
+        model.addAttribute(modelAttributeAuthors, authorRepositoryImpl.getAuthorsByBookId(id));
+        return "book/bookremoveauthor";
+    }
+
+    /**
      * Method creates connection between book and author
      * @return redirects to /books/{id} on successful author adding
      */
@@ -123,7 +136,7 @@ public class BookController {
         if (bindingResult.hasErrors())
             return "book/bookedit";
         bookRepositoryImpl.updateBook(id, book);
-        return "redirect:/books" + id;
+        return "redirect:/books/" + id;
     }
 
     /**
@@ -132,9 +145,12 @@ public class BookController {
      *         redirects to /books/{id} on successful remove
      */
     @DeleteMapping("/{id}/remove-author")
-    public String getViewBookOnAuthorRemove(@ModelAttribute(modelAttributeBook) Book book, @PathVariable(pathVariableId) long id) {
+    public String getViewBookOnAuthorRemove(@ModelAttribute(modelAttributeBook) Book book, @PathVariable(pathVariableId) long id, Model model) {
+        List<Author> listOfBookAuthors = authorRepositoryImpl.getAuthorsByBookId(id);
+        if (listOfBookAuthors.size() < 2)
+            return "redirect:/books/" + id;
         bookAuthorRepositoryImpl.deleteBookAuthor(book.getId(), book.getBookAuthorId());
-        return "redirect:/books" + id;
+        return "redirect:/books/" + id;
     }
 
     /**

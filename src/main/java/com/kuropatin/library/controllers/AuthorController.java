@@ -69,11 +69,15 @@ public class AuthorController {
     /**
      * Method creates author
      * @return authoradd.html page if entered information is not valid
+     *         authoradd.html page if author that has same name already exists
      *         redirects to /authors/{id} on successful creation
      */
     @PostMapping("/{id}")
     public String getViewAuthorsOnCreate(@ModelAttribute(modelAttributeAuthor) @Valid Author author, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
+            return "author/authoradd";
+        Author authorForValidation = authorRepositoryImpl.getAuthorByName(author.getFirstName(), author.getLastName());
+        if (authorForValidation != null)
             return "author/authoradd";
         authorRepositoryImpl.createAuthor(author);
         Author authorForId = authorRepositoryImpl.getAuthorByName(author.getFirstName(), author.getLastName());
@@ -90,7 +94,7 @@ public class AuthorController {
         if (bindingResult.hasErrors())
             return "author/authoredit";
         authorRepositoryImpl.updateAuthor(id, author);
-        return "redirect:/authors" + id;
+        return "redirect:/authors/" + id;
     }
 
     /**
