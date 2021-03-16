@@ -119,7 +119,7 @@ public class BookController {
     public String getViewBooksOnCreate(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) @Valid Book book, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return BOOK_ADD_HTML;
-        if (bookService.isBookExists(book.getName()))
+        else if (bookService.isBookExists(book.getName()))
             return BOOK_ADD_HTML;
         bookService.createBook(book);
         return REDIRECT_TO_BOOKS + bookService.getBookId(book);

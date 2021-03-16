@@ -81,7 +81,7 @@ public class AuthorController {
     public String getViewAuthorsOnCreate(@ModelAttribute(MODEL_ATTRIBUTE_AUTHOR) @Valid Author author, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return AUTHOR_ADD_HTML;
-        if (authorService.isAuthorExists(author))
+        else if (authorService.isAuthorExists(author))
             return AUTHOR_ADD_HTML;
         authorService.createAuthor(author);
         return REDIRECT_TO_AUTHORS + authorService.getAuthorId(author);
