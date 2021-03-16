@@ -2,7 +2,6 @@ package com.kuropatin.library.repositories;
 
 import com.kuropatin.library.mappers.BookMapper;
 import com.kuropatin.library.models.entities.Book;
-import com.kuropatin.library.repositories.SearchRepository;
 import com.kuropatin.library.models.utils.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
