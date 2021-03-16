@@ -93,11 +93,11 @@ public class AuthorController {
      *         redirects to /authors/{id} on successful update
      */
     @PatchMapping("/{id}")
-    public String getViewAuthorsOnUpdate(@ModelAttribute(MODEL_ATTRIBUTE_AUTHOR) @Valid Author author, @PathVariable(PATH_VARIABLE_ID) long id, BindingResult bindingResult) {
+    public String getViewAuthorsOnUpdate(@ModelAttribute(MODEL_ATTRIBUTE_AUTHOR) @Valid Author author, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return AUTHOR_EDIT_HTML;
-        authorService.updateAuthor(id, author);
-        return REDIRECT_TO_AUTHORS + id;
+        authorService.updateAuthor(author.getId(), author);
+        return REDIRECT_TO_AUTHORS + author.getId();
     }
 
     /**
