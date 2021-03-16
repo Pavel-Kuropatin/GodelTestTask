@@ -11,7 +11,7 @@
     </head>
     <body>
         <h1>Add a new book</h1>
-        <br>
+        <h3>Here you can add a new book</h3>
         <form th:method="POST" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
             <label for="name">Enter book name: </label>
             <input type="text" th:field="*{name}" id="name" required>
@@ -35,7 +35,12 @@
             <br>
             <input type="reset" value="Clear form">
             <input type="submit" value="Add">
-            <button type="button"><a href="/books/add">Try again</a></button>
+            <button type="button">
+                <a href="/books">Cancel</a>
+            </button>
+            <button type="button">
+                <a href="/books/add">Try again</a>
+            </button>
         </form>
     </body>
 </html>

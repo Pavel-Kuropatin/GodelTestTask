@@ -12,7 +12,6 @@
     <body>
         <h1>Edit author</h1>
         <h3>Here you can edit author information</h3>
-        <br>
         <form th:method="PATCH" th:action="@{/authors/{id}(id=${author.getId()})}" th:object="${author}">
             <label for="firstName">Edit first name:</label>
             <input type="text" th:field="*{firstName}" id="firstName" required>
@@ -33,10 +32,10 @@
             <br>
             <br>
             <input type="submit" value="Edit">
+            <button type="button">
+                <a th:href="@{/authors/{id}(id=${author.getId()})}">Cancel</a>
+            </button>
         </form>
-        <button type="button">
-            <a th:href="@{/authors/{id}(id=${author.getId()})}">Cancel</a>
-        </button>
         <form th:method="DELETE" th:action="@{/authors/{id}(id=${author.getId()})}">
             <input type="submit" value="Delete">
         </form>

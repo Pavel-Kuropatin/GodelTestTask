@@ -12,7 +12,6 @@
     <body>
         <h1>Add a new author</h1>
         <h3>Here you can add a new author</h3>
-        <br>
         <form th:method="POST" th:action="@{/authors/{id}(id=${author.getId()})}" th:object="${author}">
             <label for="firstName">Enter first name:</label>
             <input type="text" th:field="*{firstName}" id="firstName" required>
@@ -30,11 +29,13 @@
             <input type="radio" th:field="*{sex}" value="male" required>Male
             <input type="radio" th:field="*{sex}" value="female" required>Female
             <input type="radio" th:field="*{sex}" value="undefined" required>Undefined
-            <span style="color:red" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">error</span>
             <br>
             <br>
-            <input type="reset" value="Clear form">
             <input type="submit" value="Add">
+            <input type="reset" value="Clear form">
+            <button type="button">
+                <a href="/authors">Cancel</a>
+            </button>
         </form>
     </body>
 </html>

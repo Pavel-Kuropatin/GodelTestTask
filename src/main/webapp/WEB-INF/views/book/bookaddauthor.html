@@ -16,7 +16,6 @@
     <body>
         <h1>Add author to book</h1>
         <h3>Here you can add another book author</h3>
-        <br>
         <p th:text="${book.getName() + '. Published in ' + book.getYearOfPublication() + ' by ' + book.getPublisher()}">
             book_name. Published in year_of_publication by publisher.
         </p>
@@ -40,7 +39,9 @@
             </div>
             <br>
             <input type="submit" value="Add">
-            <button type="button"><a th:href="@{/books/{id}/add-author(id=${book.getId()})}">Try again</a></button>
+            <button type="button">
+                <a th:href="@{/books/{id}(id=${book.getId()})}">Cancel</a>
+            </button>
         </form>
     </body>
 </html>

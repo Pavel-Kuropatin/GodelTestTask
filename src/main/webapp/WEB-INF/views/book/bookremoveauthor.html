@@ -16,7 +16,6 @@
     <body>
         <h1>Remove author from book authors</h1>
         <h3>Here you can remove author book authors</h3>
-        <br>
         <p th:text="${book.getName() + '. Published in ' + book.getYearOfPublication() + ' by ' + book.getPublisher()}">
             book_name. Published in year_of_publication by publisher.
         </p>
@@ -39,7 +38,9 @@
             </div>
             <br>
             <input type="submit" value="Remove">
-            <button type="button"><a href="@{/books/{id}/remove-author(id=${book.getId()})}">Try again</a></button>
+            <button type="button">
+                <a th:href="@{/books/{id}(id=${book.getId()})}">Cancel</a>
+            </button>
         </form>
     </body>
 </html>
