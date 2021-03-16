@@ -16,10 +16,15 @@ public class AuthorController {
 
     private final AuthorService authorService;
     private final BookService bookService;
-    private final String pathVariableId = "id";
-    private final String modelAttributeAuthor = "author";
-    private final String modelAttributeAuthors = "authors";
-    private final String modelAttributeBooks = "books";
+    private static final String PATH_VARIABLE_ID = "id";
+    private static final String MODEL_ATTRIBUTE_AUTHOR = "author";
+    private static final String MODEL_ATTRIBUTE_AUTHORS = "authors";
+    private static final String MODEL_ATTRIBUTE_BOOKS = "books";
+    private static final String AUTHORS_HTML = "author/authors";
+    private static final String AUTHOR_HTML = "author/author";
+    private static final String AUTHOR_EDIT_HTML = "author/authoredit";
+    private static final String AUTHOR_ADD_HTML = "author/authoradd";
+    private static final String REDIRECT_TO_AUTHORS = "redirect:/authors/";
 
     @Autowired
     public AuthorController(AuthorService authorService, BookService bookService) {
@@ -33,8 +38,8 @@ public class AuthorController {
      */
     @GetMapping
     public String getViewAuthors(Model model) {
-        model.addAttribute(modelAttributeAuthors, authorService.getAllAuthors());
-        return "author/authors";
+        model.addAttribute(MODEL_ATTRIBUTE_AUTHORS, authorService.getAllAuthors());
+        return AUTHORS_HTML;
     }
 
     /**
@@ -42,18 +47,18 @@ public class AuthorController {
      * @return book.html page
      */
     @GetMapping("/{id}")
-    public String getViewAuthorById(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeAuthor, authorService.getAuthorByAuthorId(id));
-        model.addAttribute(modelAttributeBooks, bookService.getBooksByAuthorId(id));
-        return "author/author";
+    public String getViewAuthorById(@PathVariable(PATH_VARIABLE_ID) long id, Model model) {
+        model.addAttribute(MODEL_ATTRIBUTE_AUTHOR, authorService.getAuthorByAuthorId(id));
+        model.addAttribute(MODEL_ATTRIBUTE_BOOKS, bookService.getBooksByAuthorId(id));
+        return AUTHOR_HTML;
     }
 
     /**
      * Method returns authoradd.html page
      */
     @GetMapping("/add")
-    public String getViewAuthorAdd(@ModelAttribute(modelAttributeAuthor) Author author) {
-        return "author/authoradd";
+    public String getViewAuthorAdd(@ModelAttribute(MODEL_ATTRIBUTE_AUTHOR) Author author) {
+        return AUTHOR_ADD_HTML;
     }
 
     /**
@@ -61,9 +66,9 @@ public class AuthorController {
      * @return authoredit.html page
      */
     @GetMapping("/{id}/edit")
-    public String getViewAuthorEdit(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeAuthor, authorService.getAuthorByAuthorId(id));
-        return "author/authoredit";
+    public String getViewAuthorEdit(@PathVariable(PATH_VARIABLE_ID) long id, Model model) {
+        model.addAttribute(MODEL_ATTRIBUTE_AUTHOR, authorService.getAuthorByAuthorId(id));
+        return AUTHOR_EDIT_HTML;
     }
 
     /**
@@ -73,13 +78,13 @@ public class AuthorController {
      *         redirects to /authors/{id} on successful creation
      */
     @PostMapping("/{id}")
-    public String getViewAuthorsOnCreate(@ModelAttribute(modelAttributeAuthor) @Valid Author author, BindingResult bindingResult) {
+    public String getViewAuthorsOnCreate(@ModelAttribute(MODEL_ATTRIBUTE_AUTHOR) @Valid Author author, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "author/authoradd";
+            return AUTHOR_ADD_HTML;
         if (authorService.isAuthorExists(author))
-            return "author/authoradd";
+            return AUTHOR_ADD_HTML;
         authorService.createAuthor(author);
-        return "redirect:/authors/" + authorService.getAuthorId(author);
+        return REDIRECT_TO_AUTHORS + authorService.getAuthorId(author);
     }
 
     /**
@@ -88,11 +93,11 @@ public class AuthorController {
      *         redirects to /authors/{id} on successful update
      */
     @PatchMapping("/{id}")
-    public String getViewAuthorsOnUpdate(@ModelAttribute(modelAttributeAuthor) @Valid Author author, @PathVariable(pathVariableId) long id, BindingResult bindingResult) {
+    public String getViewAuthorsOnUpdate(@ModelAttribute(MODEL_ATTRIBUTE_AUTHOR) @Valid Author author, @PathVariable(PATH_VARIABLE_ID) long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "author/authoredit";
+            return AUTHOR_EDIT_HTML;
         authorService.updateAuthor(id, author);
-        return "redirect:/authors/" + id;
+        return REDIRECT_TO_AUTHORS + id;
     }
 
     /**
@@ -100,8 +105,8 @@ public class AuthorController {
      * @return redirects to /authors
      */
     @DeleteMapping("/{id}")
-    public String getViewAuthorsOnDelete(@PathVariable(pathVariableId) long id) {
+    public String getViewAuthorsOnDelete(@PathVariable(PATH_VARIABLE_ID) long id) {
         authorService.deleteAuthor(id);
-        return "redirect:/authors";
+        return REDIRECT_TO_AUTHORS;
     }
 }

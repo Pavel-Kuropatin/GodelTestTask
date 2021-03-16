@@ -16,11 +16,18 @@ public class BookController {
 
     private final BookService bookService;
     private final AuthorService authorService;
-    private final String pathVariableId = "id";
-    private final String modelAttributeBook = "book";
-    private final String modelAttributeBooks = "books";
-    private final String modelAttributeAuthors = "authors";
-    private final String modelAttributeAuthorsToBeAdded = "authorsToBeAdded";
+    private static final String PATH_VARIABLE_ID = "id";
+    private static final String MODEL_ATTRIBUTE_BOOK = "book";
+    private static final String MODEL_ATTRIBUTE_BOOKS = "books";
+    private static final String MODEL_ATTRIBUTE_AUTHORS = "authors";
+    private static final String MODEL_ATTRIBUTE_AUTHORS_TO_BE_ADDED = "authorsToBeAdded";
+    private static final String BOOKS_HTML = "book/books";
+    private static final String BOOK_HTML = "book/book";
+    private static final String BOOK_ADD_HTML = "book/bookadd";
+    private static final String BOOK_EDIT_HTML = "book/bookedit";
+    private static final String BOOK_ADD_AUTHOR_HTML = "book/bookaddauthor";
+    private static final String BOOK_REMOVE_AUTHOR_HTML = "book/bookremoveauthor";
+    private static final String REDIRECT_TO_BOOKS = "redirect:/books/";
 
     @Autowired
     public BookController(BookService bookService, AuthorService authorService) {
@@ -34,8 +41,8 @@ public class BookController {
      */
     @GetMapping
     public String getViewBooks(Model model) {
-        model.addAttribute(modelAttributeBooks, bookService.getAllBooks());
-        return "book/books";
+        model.addAttribute(MODEL_ATTRIBUTE_BOOKS, bookService.getAllBooks());
+        return BOOKS_HTML;
     }
 
     /**
@@ -43,10 +50,10 @@ public class BookController {
      * @return book.html page
      */
     @GetMapping("/{id}")
-    public String getViewBookById(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeBook, bookService.getBookByBookId(id));
-        model.addAttribute(modelAttributeAuthors, authorService.getAuthorsByBookId(id));
-        return "book/book";
+    public String getViewBookById(@PathVariable(PATH_VARIABLE_ID) long id, Model model) {
+        model.addAttribute(MODEL_ATTRIBUTE_BOOK, bookService.getBookByBookId(id));
+        model.addAttribute(MODEL_ATTRIBUTE_AUTHORS, authorService.getAuthorsByBookId(id));
+        return BOOK_HTML;
     }
 
     /**
@@ -54,9 +61,9 @@ public class BookController {
      * @return bookadd.html page
      */
     @GetMapping("/add")
-    public String getViewBookAdd(@ModelAttribute(modelAttributeBook) Book book, Model model) {
-        model.addAttribute(modelAttributeAuthors, authorService.getAllAuthors());
-        return "book/bookadd";
+    public String getViewBookAdd(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) Book book, Model model) {
+        model.addAttribute(MODEL_ATTRIBUTE_AUTHORS, authorService.getAllAuthors());
+        return BOOK_ADD_HTML;
     }
 
     /**
@@ -64,9 +71,9 @@ public class BookController {
      * @return bookedit.html page
      */
     @GetMapping("/{id}/edit")
-    public String getViewBookEdit(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeBook, bookService.getBookByBookId(id));
-        return "book/bookedit";
+    public String getViewBookEdit(@PathVariable(PATH_VARIABLE_ID) long id, Model model) {
+        model.addAttribute(MODEL_ATTRIBUTE_BOOK, bookService.getBookByBookId(id));
+        return BOOK_EDIT_HTML;
     }
 
     /**
@@ -74,11 +81,11 @@ public class BookController {
      * @return bookaddauthor.html page
      */
     @GetMapping("/{id}/add-author")
-    public String getViewBookAuthorAdd(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeBook, bookService.getBookByBookId(id));
-        model.addAttribute(modelAttributeAuthors, authorService.getAuthorsByBookId(id));
-        model.addAttribute(modelAttributeAuthorsToBeAdded, authorService.getAuthorsToBeAddedByBookId(id));
-        return "book/bookaddauthor";
+    public String getViewBookAuthorAdd(@PathVariable(PATH_VARIABLE_ID) long id, Model model) {
+        model.addAttribute(MODEL_ATTRIBUTE_BOOK, bookService.getBookByBookId(id));
+        model.addAttribute(MODEL_ATTRIBUTE_AUTHORS, authorService.getAuthorsByBookId(id));
+        model.addAttribute(MODEL_ATTRIBUTE_AUTHORS_TO_BE_ADDED, authorService.getAuthorsToBeAddedByBookId(id));
+        return BOOK_ADD_AUTHOR_HTML;
     }
 
     /**
@@ -86,10 +93,10 @@ public class BookController {
      * @return bookremoveauthor.html page
      */
     @GetMapping("/{id}/remove-author")
-    public String getViewBookAuthorRemove(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeBook, bookService.getBookByBookId(id));
-        model.addAttribute(modelAttributeAuthors, authorService.getAuthorsByBookId(id));
-        return "book/bookremoveauthor";
+    public String getViewBookAuthorRemove(@PathVariable(PATH_VARIABLE_ID) long id, Model model) {
+        model.addAttribute(MODEL_ATTRIBUTE_BOOK, bookService.getBookByBookId(id));
+        model.addAttribute(MODEL_ATTRIBUTE_AUTHORS, authorService.getAuthorsByBookId(id));
+        return BOOK_REMOVE_AUTHOR_HTML;
     }
 
     /**
@@ -97,9 +104,9 @@ public class BookController {
      * @return redirects to /books/{id} on successful author adding
      */
     @PostMapping("/{id}/add-author")
-    public String getViewBookOnAuthorAdd(@ModelAttribute(modelAttributeBook) Book book) {
+    public String getViewBookOnAuthorAdd(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) Book book) {
         bookService.addBookAuthor(book);
-        return "redirect:/books/" + book.getId();
+        return REDIRECT_TO_BOOKS + book.getId();
     }
 
     /**
@@ -109,13 +116,13 @@ public class BookController {
      *         redirects to /books/{id} on successful creation
      */
     @PostMapping("/{id}")
-    public String getViewBooksOnCreate(@ModelAttribute(modelAttributeBook) @Valid Book book,  BindingResult bindingResult) {
+    public String getViewBooksOnCreate(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) @Valid Book book, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "book/bookadd";
+            return BOOK_ADD_HTML;
         if (bookService.isBookExists(book.getName()))
-            return "book/bookadd";
+            return BOOK_ADD_HTML;
         bookService.createBook(book);
-        return "redirect:/books/" + bookService.getBookId(book);
+        return REDIRECT_TO_BOOKS + bookService.getBookId(book);
     }
 
     /**
@@ -124,11 +131,11 @@ public class BookController {
      *         redirects to /books/{id} on successful update
      */
     @PatchMapping("/{id}")
-    public String getViewBooksOnUpdate(@ModelAttribute(modelAttributeBook) @Valid Book book, @PathVariable(pathVariableId) long id, BindingResult bindingResult) {
+    public String getViewBooksOnUpdate(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) @Valid Book book, @PathVariable(PATH_VARIABLE_ID) long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "book/bookedit";
+            return BOOK_EDIT_HTML;
         bookService.updateBook(id, book);
-        return "redirect:/books/" + id;
+        return REDIRECT_TO_BOOKS + id;
     }
 
     /**
@@ -137,11 +144,11 @@ public class BookController {
      *         redirects to /books/{id} on successful remove
      */
     @DeleteMapping("/{id}/remove-author")
-    public String getViewBookOnAuthorRemove(@ModelAttribute(modelAttributeBook) Book book, @PathVariable(pathVariableId) long id, Model model) {
+    public String getViewBookOnAuthorRemove(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) Book book, @PathVariable(PATH_VARIABLE_ID) long id, Model model) {
         if (bookService.isLastAuthor(id))
-            return "redirect:/books/" + id;
+            return REDIRECT_TO_BOOKS + id;
         bookService.removeBookAuthor(book);
-        return "redirect:/books/" + id;
+        return REDIRECT_TO_BOOKS + id;
     }
 
     /**
@@ -149,8 +156,8 @@ public class BookController {
      * @return redirects to /books
      */
     @DeleteMapping("/{id}")
-    public String getViewBooksOnDelete(@PathVariable(pathVariableId) long id) {
+    public String getViewBooksOnDelete(@PathVariable(PATH_VARIABLE_ID) long id) {
         bookService.deleteBook(id);
-        return "redirect:/books";
+        return REDIRECT_TO_BOOKS;
     }
 }
