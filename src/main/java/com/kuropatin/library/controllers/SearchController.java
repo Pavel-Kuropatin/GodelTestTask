@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SearchController {
 
     private final SearchService searchService;
+    private static final String SEARCH_HTML = "search/search";
+    private static final String MODEL_ATTRIBUTE_SEARCH = "search";
+    private static final String MODEL_ATTRIBUTE_BOOKS = "books";
 
     @Autowired
     public SearchController(SearchRepositoryImpl searchRepositoryImpl, SearchService searchService) {
@@ -27,10 +30,10 @@ public class SearchController {
      * @return search.html page
      */
     @GetMapping
-    public String getViewSearch(@ModelAttribute("search") Search search, Model model, BindingResult bindingResult) {
+    public String getViewSearch(@ModelAttribute(MODEL_ATTRIBUTE_SEARCH) Search search, Model model, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "search/search";
-        model.addAttribute("books", searchService.findBooks(search));
-        return "search/search";
+            return SEARCH_HTML;
+        model.addAttribute(MODEL_ATTRIBUTE_BOOKS, searchService.findBooks(search));
+        return SEARCH_HTML;
     }
 }

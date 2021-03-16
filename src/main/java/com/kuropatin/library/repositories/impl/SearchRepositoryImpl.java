@@ -23,7 +23,7 @@ public class SearchRepositoryImpl implements SearchRepository {
     public List<Book> findBooks(Search search, String sex, String searchDirection) {
         String sql = "SELECT * FROM books " +
                      "WHERE LOWER(book_name) LIKE LOWER('" + search.getBookName() + "%') " +
-                     "AND year_of_publication BETWEEN " + search.getBookYearOfPublicationMin() + " AND " + search.getBookYearOfPublicationMax() + " " +
+                     "AND year_of_publication BETWEEN ? AND ? " +
                      "AND LOWER(publisher) LIKE LOWER('" + search.getBookPublisher() + "%') " +
                      "AND id IN (" +
                          "SELECT book_author.book_id " +
@@ -31,9 +31,9 @@ public class SearchRepositoryImpl implements SearchRepository {
                          "WHERE book_author.author_id = authors.id " +
                          "AND LOWER(authors.first_name) LIKE LOWER('" + search.getAuthorFirstName() + "%') " +
                          "AND LOWER(authors.last_name) LIKE LOWER('" + search.getAuthorLastName() + "%') " +
-                         "AND CAST(SUBSTRING(authors.birth_date, 7) as int) BETWEEN " + search.getAuthorYearOfBirthMin() + " AND " + search.getAuthorYearOfBirthMax() + " " +
+                         "AND CAST(SUBSTRING(authors.birth_date, 7) as int) BETWEEN ? AND ? " +
                          sex +
-                     ") ORDER BY " + search.getSortBy() + " " + searchDirection;
-        return JDBC_TEMPLATE.query(sql, new BookMapper());
+                     ") ORDER BY ? " + searchDirection;
+        return JDBC_TEMPLATE.query(sql, new BookMapper(), search.getBookYearOfPublicationMin(), search.getBookYearOfPublicationMax(), search.getAuthorYearOfBirthMin(), search.getAuthorYearOfBirthMax(), search.getSortBy());
     }
 }

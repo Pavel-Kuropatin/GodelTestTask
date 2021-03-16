@@ -46,13 +46,13 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                      "WHERE authors.id NOT IN (" +
                          "SELECT authors.id " +
                          "FROM authors, books, book_author " +
-                         "WHERE books.id = book_author.book_id AND book_author.book_id = books.id AND authors.id = book_author.author_id AND book_author.book_id = " + bookId + ") " +
+                         "WHERE books.id = book_author.book_id AND book_author.book_id = books.id AND authors.id = book_author.author_id AND book_author.book_id = ?) " +
                          "AND authors.id IN (" +
                          "SELECT authors.id " +
                          "FROM authors, books " +
-                         "WHERE CAST(SUBSTRING (authors.birth_date, 7) AS int) < books.year_of_publication AND books.id = " + bookId + ")" +
+                         "WHERE CAST(SUBSTRING (authors.birth_date, 7) AS int) < books.year_of_publication AND books.id = ?)" +
                      "ORDER BY first_name";
-        return JDBC_TEMPLATE.query(sql, new AuthorMapper());
+        return JDBC_TEMPLATE.query(sql, new AuthorMapper(), bookId, bookId);
     }
 
     @Override
