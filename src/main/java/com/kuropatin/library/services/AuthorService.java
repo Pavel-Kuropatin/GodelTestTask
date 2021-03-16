@@ -2,8 +2,6 @@ package com.kuropatin.library.services;
 
 import com.kuropatin.library.models.entities.Author;
 import com.kuropatin.library.repositories.impl.AuthorRepositoryImpl;
-import com.kuropatin.library.repositories.impl.BookAuthorRepositoryImpl;
-import com.kuropatin.library.repositories.impl.BookRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +10,11 @@ import java.util.List;
 @Service
 public class AuthorService {
 
-    private final BookRepositoryImpl bookRepositoryImpl;
     private final AuthorRepositoryImpl authorRepositoryImpl;
-    private final BookAuthorRepositoryImpl bookAuthorRepositoryImpl;
 
     @Autowired
-    public AuthorService(BookRepositoryImpl bookRepositoryImpl, AuthorRepositoryImpl authorRepositoryImpl, BookAuthorRepositoryImpl bookAuthorRepositoryImpl) {
-        this.bookRepositoryImpl = bookRepositoryImpl;
+    public AuthorService(AuthorRepositoryImpl authorRepositoryImpl) {
         this.authorRepositoryImpl = authorRepositoryImpl;
-        this.bookAuthorRepositoryImpl = bookAuthorRepositoryImpl;
     }
 
     public List<Author> getAllAuthors() {
