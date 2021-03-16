@@ -19,7 +19,6 @@ public class Book {
     @Size(max = 255, message = "Name should be less than 255 characters")
     private String name;
 
-    @NotEmpty(message = "Enter year of publication")
     @Min(value = 1, message = "Year of publication should be more than 0")
     @Max(value = 2021, message = "Enter valid year")
     private int yearOfPublication;
