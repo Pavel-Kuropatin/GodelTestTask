@@ -1,6 +1,6 @@
 package com.kuropatin.library.repositories.interfaces;
 
-import com.kuropatin.library.models.Author;
+import com.kuropatin.library.models.entities.Author;
 import java.util.List;
 
 public interface AuthorRepository {

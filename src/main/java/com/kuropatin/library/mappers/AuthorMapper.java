@@ -1,10 +1,10 @@
 package com.kuropatin.library.mappers;
 
-import com.kuropatin.library.models.Author;
+import com.kuropatin.library.models.entities.Author;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static com.kuropatin.library.models.Author.*;
+import static com.kuropatin.library.models.entities.Author.*;
 
 public class AuthorMapper implements RowMapper<Author> {
 

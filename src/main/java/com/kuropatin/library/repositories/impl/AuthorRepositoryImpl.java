@@ -1,7 +1,7 @@
 package com.kuropatin.library.repositories.impl;
 
 import com.kuropatin.library.mappers.AuthorMapper;
-import com.kuropatin.library.models.Author;
+import com.kuropatin.library.models.entities.Author;
 import com.kuropatin.library.repositories.interfaces.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,11 +44,15 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         String sql = "SELECT authors.id, authors.first_name, authors.last_name, authors.birth_date, authors.sex " +
                      "FROM authors " +
                      "WHERE authors.id NOT IN (" +
-                     "SELECT authors.id " +
-                     "FROM authors, books, book_author " +
-                     "WHERE books.id = book_author.book_id AND book_author.book_id = books.id AND authors.id = book_author.author_id AND book_author.book_id = ?) " +
+                         "SELECT authors.id " +
+                         "FROM authors, books, book_author " +
+                         "WHERE books.id = book_author.book_id AND book_author.book_id = books.id AND authors.id = book_author.author_id AND book_author.book_id = " + bookId + ") " +
+                         "AND authors.id IN (" +
+                         "SELECT authors.id " +
+                         "FROM authors, books " +
+                         "WHERE CAST(SUBSTRING (authors.birth_date, 7) AS int) < books.year_of_publication AND books.id = " + bookId + ")" +
                      "ORDER BY first_name";
-        return JDBC_TEMPLATE.query(sql, new AuthorMapper(), bookId);
+        return JDBC_TEMPLATE.query(sql, new AuthorMapper());
     }
 
     @Override

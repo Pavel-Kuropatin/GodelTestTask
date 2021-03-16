@@ -1,6 +1,6 @@
 package com.kuropatin.library.repositories.interfaces;
 
-import com.kuropatin.library.models.Book;
+import com.kuropatin.library.models.entities.Book;
 import java.util.List;
 
 public interface BookRepository {

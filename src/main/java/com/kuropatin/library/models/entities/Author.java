@@ -1,5 +1,6 @@
-package com.kuropatin.library.models;
+package com.kuropatin.library.models.entities;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -14,13 +15,17 @@ public class Author {
 
     private long id;
 
+    @NotEmpty(message = "Enter first name")
     @Size(max = 30, message = "Name should be less than 30 characters")
     private String firstName;
 
-    @Size(max = 30, message = "Name should be less than 30 characters")
+    @NotEmpty(message = "Enter last name")
+    @Size(max = 30, message = "Last name should be less than 30 characters")
     private String lastName;
 
-    @Pattern(regexp = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$", message = "Birth date should be in format dd.mm.yyyy and should be valid")
+    @NotEmpty(message = "Enter first name")
+    @Pattern(regexp = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$",
+             message = "Birth date should be in format dd.mm.yyyy and valid")
     private String birthDate;
 
     private String sex;

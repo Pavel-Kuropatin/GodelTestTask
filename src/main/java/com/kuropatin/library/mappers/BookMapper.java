@@ -1,10 +1,10 @@
 package com.kuropatin.library.mappers;
 
-import com.kuropatin.library.models.Book;
+import com.kuropatin.library.models.entities.Book;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static com.kuropatin.library.models.Book.*;
+import static com.kuropatin.library.models.entities.Book.*;
 
 public class BookMapper implements RowMapper<Book> {
 
