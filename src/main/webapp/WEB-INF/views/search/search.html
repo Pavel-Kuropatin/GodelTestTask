@@ -7,6 +7,9 @@
             a {
                 text-decoration: none;
             }
+            #bookYearOfPublication, #authorYearOfBirth {
+                width: 50px;
+            }
         </style>
     </head>
     <body>
@@ -14,18 +17,53 @@
         <div>
             <a href="/">To start page</a> |
             <a href="/books">Browse books</a> |
-            <a href="/authors/add">Add a new author</a>
+            <a href="/authors">Browse authors</a>
         </div>
         <h3>What do you want to find?</h3>
-        <form>
-            <p>
-                <input type="search" name="searchField" placeholder="Book search">
-                <input type="submit" value="Search">
-            </p>
+        <form th:method="GET" th:action="@{/search}" th:object="${search}")>
+            <label for="bookName">Book name:</label>
+            <input type="text" th:field="*{bookName}" id="bookName">
+                <span style="color:red" th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}">error</span>
+            <br>
+            <label for="bookYearOfPublication">Year of publication between</label>
+            <input type="number" min="1" th:field="*{bookYearOfPublicationMin}" id="bookYearOfPublication" required>
+                <span> and </span>
+                    <input type="number" min="1" th:field="*{bookYearOfPublicationMax}" id="bookYearOfPublication" required>
+            <br>
+            <label for="bookPublisher">Book publisher:</label>
+            <input type="text" th:field="*{bookPublisher}" id="bookPublisher">
+                <span style="color:red" th:if="${#fields.hasErrors('bookPublisher')}" th:errors="*{bookPublisher}">error</span>
+            <br>
+            <label for="authorFirstName">Author first name:</label>
+            <input type="text" th:field="*{authorFirstName}" id="authorFirstName">
+                <span style="color:red" th:if="${#fields.hasErrors('authorFirstName')}" th:errors="*{authorFirstName}">error</span>
+            <br>
+            <label for="authorLastName">Author last name:</label>
+            <input type="text" th:field="*{authorLastName}" id="authorLastName">
+                <span style="color:red" th:if="${#fields.hasErrors('authorLastName')}" th:errors="*{authorLastName}">error</span>
+            <br>
+            <label for="authorYearOfBirth">Author year of birth between</label>
+            <input type="number" min="1" th:field="*{authorYearOfBirthMin}" id="authorYearOfBirth" required>
+                <span> and </span>
+                    <input type="number" min="1" th:field="*{authorYearOfBirthMax}" id="authorYearOfBirth" required>
+            <br>
+            <label>Author sex:</label>
+            <input type="radio" th:field="*{authorSex}" value="male" required>Male
+            <input type="radio" th:field="*{authorSex}" value="female" required>Female
+            <input type="radio" th:field="*{authorSex}" value="undefined" required>Undefined
+            <br>
+            <label>Author sex:</label>
+            <input type="radio" th:field="*{sortBy}" value="book_name" required>Book name
+            <input type="radio" th:field="*{sortBy}" value="year_of_publication" required>Year of publication
+            <input type="radio" th:field="*{sortBy}" value="publisher" required>Publisher
+            <br>
+            <br>
+            <input type="reset" value="Clear">
+            <input type="submit" value="Search">
         </form>
         <p th:each="book : ${books}">
-            <a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getName() + ', ' + book.getYearOfPublication() + '.'}">
-                book_name, year_of_publication.
+            <a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getName() + '. Published in ' + book.getYearOfPublication() + ' by ' + book.getPublisher()}">
+                book_name. Published in year_of_publication by publisher.
             </a>
         </p>
     </body>
