@@ -12,6 +12,9 @@ public class Author {
     public static final String AUTHOR_lastName = "last_name";
     public static final String AUTHOR_birthDate = "birth_date";
     public static final String AUTHOR_sex = "sex";
+    public static final String sexMale = "male";
+    public static final String sexFemale = "female";
+    public static final String sexUndefined = "undefined";
 
     private long id;
 
@@ -28,7 +31,7 @@ public class Author {
              message = "Birth date should be in format dd.mm.yyyy and valid")
     private String birthDate;
 
-    private String sex;
+    private String sex = sexUndefined;
 
     public Author() {
 
