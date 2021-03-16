@@ -1,4 +1,4 @@
-package com.kuropatin.library.repositories.interfaces;
+package com.kuropatin.library.repositories;
 
 import com.kuropatin.library.models.entities.Author;
 import java.util.List;

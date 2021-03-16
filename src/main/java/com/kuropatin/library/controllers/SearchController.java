@@ -1,6 +1,6 @@
 package com.kuropatin.library.controllers;
 
-import com.kuropatin.library.repositories.impl.SearchRepositoryImpl;
+import com.kuropatin.library.repositories.SearchRepositoryImpl;
 import com.kuropatin.library.services.SearchService;
 import com.kuropatin.library.models.utils.Search;
 import org.springframework.beans.factory.annotation.Autowired;

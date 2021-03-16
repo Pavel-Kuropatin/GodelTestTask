@@ -1,4 +1,4 @@
-package com.kuropatin.library.repositories.interfaces;
+package com.kuropatin.library.repositories;
 
 public interface BookAuthorRepository {
 

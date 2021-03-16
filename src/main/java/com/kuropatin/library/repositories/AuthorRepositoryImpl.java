@@ -1,8 +1,7 @@
-package com.kuropatin.library.repositories.impl;
+package com.kuropatin.library.repositories;
 
 import com.kuropatin.library.mappers.AuthorMapper;
 import com.kuropatin.library.models.entities.Author;
-import com.kuropatin.library.repositories.interfaces.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

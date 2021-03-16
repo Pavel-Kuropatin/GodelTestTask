@@ -1,10 +1,9 @@
 package com.kuropatin.library.services;
 
 import com.kuropatin.library.models.entities.Author;
-import com.kuropatin.library.repositories.impl.AuthorRepositoryImpl;
+import com.kuropatin.library.repositories.AuthorRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
