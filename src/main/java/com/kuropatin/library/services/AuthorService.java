@@ -1,11 +1,13 @@
 package com.kuropatin.library.services;
 
-import com.kuropatin.library.models.Author;
-import com.kuropatin.library.repository.impl.AuthorRepositoryImpl;
-import com.kuropatin.library.repository.impl.BookAuthorRepositoryImpl;
-import com.kuropatin.library.repository.impl.BookRepositoryImpl;
+import com.kuropatin.library.models.entities.Author;
+import com.kuropatin.library.repositories.impl.AuthorRepositoryImpl;
+import com.kuropatin.library.repositories.impl.BookAuthorRepositoryImpl;
+import com.kuropatin.library.repositories.impl.BookRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AuthorService {
@@ -19,6 +21,22 @@ public class AuthorService {
         this.bookRepositoryImpl = bookRepositoryImpl;
         this.authorRepositoryImpl = authorRepositoryImpl;
         this.bookAuthorRepositoryImpl = bookAuthorRepositoryImpl;
+    }
+
+    public List<Author> getAllAuthors() {
+        return authorRepositoryImpl.getAllAuthors();
+    }
+
+    public Author getAuthorByAuthorId(long id) {
+        return authorRepositoryImpl.getAuthorByAuthorId(id);
+    }
+
+    public List<Author> getAuthorsByBookId(long bookId) {
+        return authorRepositoryImpl.getAuthorsByBookId(bookId);
+    }
+
+    public List<Author> getAuthorsToBeAddedByBookId(long bookId) {
+        return authorRepositoryImpl.getAuthorsToBeAddedByBookId(bookId);
     }
 
     public void createAuthor(Author author) {

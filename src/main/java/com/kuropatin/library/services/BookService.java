@@ -1,10 +1,10 @@
 package com.kuropatin.library.services;
 
-import com.kuropatin.library.models.Author;
-import com.kuropatin.library.models.Book;
-import com.kuropatin.library.repository.impl.AuthorRepositoryImpl;
-import com.kuropatin.library.repository.impl.BookAuthorRepositoryImpl;
-import com.kuropatin.library.repository.impl.BookRepositoryImpl;
+import com.kuropatin.library.models.entities.Author;
+import com.kuropatin.library.models.entities.Book;
+import com.kuropatin.library.repositories.impl.AuthorRepositoryImpl;
+import com.kuropatin.library.repositories.impl.BookAuthorRepositoryImpl;
+import com.kuropatin.library.repositories.impl.BookRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -21,6 +21,18 @@ public class BookService {
         this.bookRepositoryImpl = bookRepositoryImpl;
         this.authorRepositoryImpl = authorRepositoryImpl;
         this.bookAuthorRepositoryImpl = bookAuthorRepositoryImpl;
+    }
+
+    public List<Book> getAllBooks() {
+        return bookRepositoryImpl.getAllBooks();
+    }
+
+    public Book getBookByBookId(long id) {
+        return bookRepositoryImpl.getBookByBookId(id);
+    }
+
+    public List<Book> getBooksByAuthorId(long authorId) {
+        return bookRepositoryImpl.getBooksByAuthorId(authorId);
     }
 
     public void createBook(Book book) {

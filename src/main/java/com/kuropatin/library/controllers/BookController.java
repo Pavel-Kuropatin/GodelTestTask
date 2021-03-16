@@ -1,8 +1,7 @@
 package com.kuropatin.library.controllers;
 
-import com.kuropatin.library.models.Book;
-import com.kuropatin.library.repository.impl.AuthorRepositoryImpl;
-import com.kuropatin.library.repository.impl.BookRepositoryImpl;
+import com.kuropatin.library.models.entities.Book;
+import com.kuropatin.library.services.AuthorService;
 import com.kuropatin.library.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +14,8 @@ import javax.validation.Valid;
 @RequestMapping("/books")
 public class BookController {
 
-    private final BookRepositoryImpl bookRepositoryImpl;
-    private final AuthorRepositoryImpl authorRepositoryImpl;
     private final BookService bookService;
+    private final AuthorService authorService;
     private final String pathVariableId = "id";
     private final String modelAttributeBook = "book";
     private final String modelAttributeBooks = "books";
@@ -25,10 +23,9 @@ public class BookController {
     private final String modelAttributeAuthorsToBeAdded = "authorsToBeAdded";
 
     @Autowired
-    public BookController(BookRepositoryImpl bookRepositoryImpl, AuthorRepositoryImpl authorRepositoryImpl, BookService bookService) {
-        this.bookRepositoryImpl = bookRepositoryImpl;
-        this.authorRepositoryImpl = authorRepositoryImpl;
+    public BookController(BookService bookService, AuthorService authorService) {
         this.bookService = bookService;
+        this.authorService = authorService;
     }
 
     /**
@@ -37,7 +34,7 @@ public class BookController {
      */
     @GetMapping
     public String getViewBooks(Model model) {
-        model.addAttribute(modelAttributeBooks, bookRepositoryImpl.getAllBooks());
+        model.addAttribute(modelAttributeBooks, bookService.getAllBooks());
         return "book/books";
     }
 
@@ -47,8 +44,8 @@ public class BookController {
      */
     @GetMapping("/{id}")
     public String getViewBookById(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeBook, bookRepositoryImpl.getBookByBookId(id));
-        model.addAttribute(modelAttributeAuthors, authorRepositoryImpl.getAuthorsByBookId(id));
+        model.addAttribute(modelAttributeBook, bookService.getBookByBookId(id));
+        model.addAttribute(modelAttributeAuthors, authorService.getAuthorsByBookId(id));
         return "book/book";
     }
 
@@ -58,7 +55,7 @@ public class BookController {
      */
     @GetMapping("/add")
     public String getViewBookAdd(@ModelAttribute(modelAttributeBook) Book book, Model model) {
-        model.addAttribute(modelAttributeAuthors, authorRepositoryImpl.getAllAuthors());
+        model.addAttribute(modelAttributeAuthors, authorService.getAllAuthors());
         return "book/bookadd";
     }
 
@@ -68,7 +65,7 @@ public class BookController {
      */
     @GetMapping("/{id}/edit")
     public String getViewBookEdit(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeBook, bookRepositoryImpl.getBookByBookId(id));
+        model.addAttribute(modelAttributeBook, bookService.getBookByBookId(id));
         return "book/bookedit";
     }
 
@@ -78,9 +75,9 @@ public class BookController {
      */
     @GetMapping("/{id}/add-author")
     public String getViewBookAuthorAdd(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeBook, bookRepositoryImpl.getBookByBookId(id));
-        model.addAttribute(modelAttributeAuthors, authorRepositoryImpl.getAuthorsByBookId(id));
-        model.addAttribute(modelAttributeAuthorsToBeAdded, authorRepositoryImpl.getAuthorsToBeAddedByBookId(id));
+        model.addAttribute(modelAttributeBook, bookService.getBookByBookId(id));
+        model.addAttribute(modelAttributeAuthors, authorService.getAuthorsByBookId(id));
+        model.addAttribute(modelAttributeAuthorsToBeAdded, authorService.getAuthorsToBeAddedByBookId(id));
         return "book/bookaddauthor";
     }
 
@@ -90,8 +87,8 @@ public class BookController {
      */
     @GetMapping("/{id}/remove-author")
     public String getViewBookAuthorRemove(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeBook, bookRepositoryImpl.getBookByBookId(id));
-        model.addAttribute(modelAttributeAuthors, authorRepositoryImpl.getAuthorsByBookId(id));
+        model.addAttribute(modelAttributeBook, bookService.getBookByBookId(id));
+        model.addAttribute(modelAttributeAuthors, authorService.getAuthorsByBookId(id));
         return "book/bookremoveauthor";
     }
 

@@ -1,9 +1,8 @@
 package com.kuropatin.library.controllers;
 
-import com.kuropatin.library.repository.impl.AuthorRepositoryImpl;
-import com.kuropatin.library.models.Author;
-import com.kuropatin.library.repository.impl.BookRepositoryImpl;
+import com.kuropatin.library.models.entities.Author;
 import com.kuropatin.library.services.AuthorService;
+import com.kuropatin.library.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,19 +14,17 @@ import javax.validation.Valid;
 @RequestMapping("/authors")
 public class AuthorController {
 
-    private final AuthorRepositoryImpl authorRepositoryImpl;
-    private final BookRepositoryImpl bookRepositoryImpl;
     private final AuthorService authorService;
+    private final BookService bookService;
     private final String pathVariableId = "id";
     private final String modelAttributeAuthor = "author";
     private final String modelAttributeAuthors = "authors";
     private final String modelAttributeBooks = "books";
 
     @Autowired
-    public AuthorController(AuthorRepositoryImpl authorRepositoryImpl, BookRepositoryImpl bookRepositoryImpl, AuthorService authorService) {
-        this.authorRepositoryImpl = authorRepositoryImpl;
-        this.bookRepositoryImpl = bookRepositoryImpl;
+    public AuthorController(AuthorService authorService, BookService bookService) {
         this.authorService = authorService;
+        this.bookService = bookService;
     }
 
     /**
@@ -36,7 +33,7 @@ public class AuthorController {
      */
     @GetMapping
     public String getViewAuthors(Model model) {
-        model.addAttribute(modelAttributeAuthors, authorRepositoryImpl.getAllAuthors());
+        model.addAttribute(modelAttributeAuthors, authorService.getAllAuthors());
         return "author/authors";
     }
 
@@ -46,8 +43,8 @@ public class AuthorController {
      */
     @GetMapping("/{id}")
     public String getViewAuthorById(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeAuthor, authorRepositoryImpl.getAuthorByAuthorId(id));
-        model.addAttribute(modelAttributeBooks, bookRepositoryImpl.getBooksByAuthorId(id));
+        model.addAttribute(modelAttributeAuthor, authorService.getAuthorByAuthorId(id));
+        model.addAttribute(modelAttributeBooks, bookService.getBooksByAuthorId(id));
         return "author/author";
     }
 
@@ -65,7 +62,7 @@ public class AuthorController {
      */
     @GetMapping("/{id}/edit")
     public String getViewAuthorEdit(@PathVariable(pathVariableId) long id, Model model) {
-        model.addAttribute(modelAttributeAuthor, authorRepositoryImpl.getAuthorByAuthorId(id));
+        model.addAttribute(modelAttributeAuthor, authorService.getAuthorByAuthorId(id));
         return "author/authoredit";
     }
 
