@@ -33,7 +33,7 @@ public class SearchRepositoryImpl implements SearchRepository {
                          "AND LOWER(authors.last_name) LIKE LOWER('" + search.getAuthorLastName() + "%') " +
                          "AND CAST(SUBSTRING(authors.birth_date, 7) as int) BETWEEN ? AND ? " +
                          sex +
-                     ") ORDER BY ? " + searchDirection;
-        return JDBC_TEMPLATE.query(sql, new BookMapper(), search.getBookYearOfPublicationMin(), search.getBookYearOfPublicationMax(), search.getAuthorYearOfBirthMin(), search.getAuthorYearOfBirthMax(), search.getSortBy());
+                     ") ORDER BY " + search.getSortBy() + " " + searchDirection;
+        return JDBC_TEMPLATE.query(sql, new BookMapper(), search.getBookYearOfPublicationMin(), search.getBookYearOfPublicationMax(), search.getAuthorYearOfBirthMin(), search.getAuthorYearOfBirthMax());
     }
 }
