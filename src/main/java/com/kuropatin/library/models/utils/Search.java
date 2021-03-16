@@ -1,16 +1,16 @@
 package com.kuropatin.library.models.utils;
 
 import javax.validation.constraints.Size;
-import static com.kuropatin.library.models.entities.Author.sexUndefined;
+import static com.kuropatin.library.models.entities.Author.SEX_UNDEFINED;
 import static com.kuropatin.library.models.entities.Book.*;
 
 public class Search {
 
-    public static final String sortByBookName = BOOK_name;
-    public static final String sortByYearOfPublication = BOOK_yearOfPublication;
-    public static final String sortByPublisher = BOOK_publisher;
-    public static final String searchAscending = "ASC";
-    public static final String searchDescending = "DESC";
+    public static final String SORT_BY_BOOK_NAME = BOOK_NAME;
+    public static final String SORT_BY_YEAR_OF_PUBLICATION = BOOK_YEAR_OF_PUBLICATION;
+    public static final String SORT_BY_BOOK_PUBLISHER = BOOK_PUBLISHER;
+    public static final String SEARCH_ASCENDING = "ASC";
+    public static final String SEARCH_DESCENDING = "DESC";
 
     @Size(max = 255, message = "Book name should be less than 255 characters")
     private String bookName = "";
@@ -32,9 +32,9 @@ public class Search {
 
     private int authorYearOfBirthMax = 2021;
 
-    private String authorSex = sexUndefined;
+    private String authorSex = SEX_UNDEFINED;
 
-    private String sortBy = sortByBookName;
+    private String sortBy = SORT_BY_BOOK_NAME;
 
     public Search() {
     }

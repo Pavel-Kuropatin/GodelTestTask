@@ -8,10 +8,10 @@ import javax.validation.constraints.Size;
 public class Book {
 
     /** constants define the names of fields in the database */
-    public static final String BOOK_id = "id";
-    public static final String BOOK_name = "book_name";
-    public static final String BOOK_yearOfPublication = "year_of_publication";
-    public static final String BOOK_publisher = "publisher";
+    public static final String BOOK_ID = "id";
+    public static final String BOOK_NAME = "book_name";
+    public static final String BOOK_YEAR_OF_PUBLICATION = "year_of_publication";
+    public static final String BOOK_PUBLISHER = "publisher";
 
     private long id;
 

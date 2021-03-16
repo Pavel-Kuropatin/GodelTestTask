@@ -7,14 +7,14 @@ import javax.validation.constraints.Size;
 public class Author {
 
     /** constants define the names of fields in the database */
-    public static final String AUTHOR_id = "id";
-    public static final String AUTHOR_firstName = "first_name";
-    public static final String AUTHOR_lastName = "last_name";
-    public static final String AUTHOR_birthDate = "birth_date";
-    public static final String AUTHOR_sex = "sex";
-    public static final String sexMale = "male";
-    public static final String sexFemale = "female";
-    public static final String sexUndefined = "undefined";
+    public static final String AUTHOR_ID = "id";
+    public static final String AUTHOR_FIRST_NAME = "first_name";
+    public static final String AUTHOR_LAST_NAME = "last_name";
+    public static final String AUTHOR_BIRTH_DATE = "birth_date";
+    public static final String AUTHOR_SEX = "sex";
+    public static final String SEX_MALE = "male";
+    public static final String SEX_FEMALE = "female";
+    public static final String SEX_UNDEFINED = "undefined";
 
     private long id;
 
@@ -31,7 +31,7 @@ public class Author {
              message = "Birth date should be in format dd.mm.yyyy and valid")
     private String birthDate;
 
-    private String sex = sexUndefined;
+    private String sex = SEX_UNDEFINED;
 
     public Author() {
 

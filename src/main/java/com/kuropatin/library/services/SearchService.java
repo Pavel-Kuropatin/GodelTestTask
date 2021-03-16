@@ -22,15 +22,15 @@ public class SearchService {
 
     public List<Book> findBooks(Search search) {
         String sex;
-        if (search.getAuthorSex().equals(sexMale))
-            sex = "AND authors.sex LIKE '" + sexMale + "'";
-        else if (search.getAuthorSex().equals(sexFemale))
-            sex = "AND authors.sex LIKE '" + sexFemale + "'";
+        if (search.getAuthorSex().equals(SEX_MALE))
+            sex = "AND authors.sex LIKE '" + SEX_MALE + "'";
+        else if (search.getAuthorSex().equals(SEX_FEMALE))
+            sex = "AND authors.sex LIKE '" + SEX_FEMALE + "'";
         else sex = "";
         String sortDirection;
-        if (search.getSortBy().equals(sortByBookName) || search.getSortBy().equals(sortByPublisher))
-            sortDirection = searchAscending;
-        else sortDirection = searchDescending;
+        if (search.getSortBy().equals(SORT_BY_BOOK_NAME) || search.getSortBy().equals(SORT_BY_BOOK_PUBLISHER))
+            sortDirection = SEARCH_ASCENDING;
+        else sortDirection = SEARCH_DESCENDING;
         return searchRepositoryImpl.findBooks(search, sex, sortDirection);
     }
 }
