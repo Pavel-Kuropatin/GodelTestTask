@@ -79,9 +79,7 @@ public class AuthorController {
      */
     @PostMapping("/{id}")
     public String getViewAuthorsOnCreate(@ModelAttribute(MODEL_ATTRIBUTE_AUTHOR) @Valid Author author, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return AUTHOR_ADD_HTML;
-        else if (authorService.isAuthorExists(author))
+        if (bindingResult.hasErrors() || authorService.isAuthorExists(author))
             return AUTHOR_ADD_HTML;
         authorService.createAuthor(author);
         return REDIRECT_TO_AUTHORS + authorService.getAuthorId(author);

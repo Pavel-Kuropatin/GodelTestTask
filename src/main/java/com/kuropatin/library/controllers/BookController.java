@@ -117,9 +117,7 @@ public class BookController {
      */
     @PostMapping("/{id}")
     public String getViewBooksOnCreate(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) @Valid Book book, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return BOOK_ADD_HTML;
-        else if (bookService.isBookExists(book.getName()))
+        if (bindingResult.hasErrors() || bookService.isBookExists(book.getName()))
             return BOOK_ADD_HTML;
         bookService.createBook(book);
         return REDIRECT_TO_BOOKS + bookService.getBookId(book);
