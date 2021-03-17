@@ -10,7 +10,7 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 2. A book can have one or more authors. You can addThe book must have at least one author on creation/editing.
 3. The book must have at least one author so when author is deleted all his books aldo deleted.
 4. Create authors that contain following information: first name, last name, date of birth, sex.
-5. If author
+5. If author was born later than the book was published, then he is not shown in the list  of authors to be added as book author. 
 6. The author can have any number of books under his own authorship, including 0.
 7. Ability to get/add/edit/delete the Book and the Author including adding and removing the author of the book.
 8. Validation upon add/edit operation.
