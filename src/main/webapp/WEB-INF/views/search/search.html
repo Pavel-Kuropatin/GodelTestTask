@@ -26,9 +26,9 @@
                 <span style="color:red" th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}">error</span>
             <br>
             <label for="bookYearOfPublication">Year of publication between</label>
-            <input type="number" min="1" th:field="*{bookYearOfPublicationMin}" id="bookYearOfPublication" required>
+            <input type="number" min="1" max="2021" th:field="*{bookYearOfPublicationMin}" id="bookYearOfPublication" required>
                 <span> and </span>
-                    <input type="number" min="1" th:field="*{bookYearOfPublicationMax}" id="bookYearOfPublication" required>
+                    <input type="number" min="1" max="2021" th:field="*{bookYearOfPublicationMax}" id="bookYearOfPublication" required>
             <br>
             <label for="bookPublisher">Book publisher:</label>
             <input type="text" th:field="*{bookPublisher}" id="bookPublisher">
@@ -43,9 +43,9 @@
                 <span style="color:red" th:if="${#fields.hasErrors('authorLastName')}" th:errors="*{authorLastName}">error</span>
             <br>
             <label for="authorYearOfBirth">Author year of birth between</label>
-            <input type="number" min="1" th:field="*{authorYearOfBirthMin}" id="authorYearOfBirth" required>
+            <input type="number" min="1" max="2021" th:field="*{authorYearOfBirthMin}" id="authorYearOfBirth" required>
                 <span> and </span>
-                    <input type="number" min="1" th:field="*{authorYearOfBirthMax}" id="authorYearOfBirth" required>
+                    <input type="number" min="1" max="2021" th:field="*{authorYearOfBirthMax}" id="authorYearOfBirth" required>
             <br>
             <label>Author sex:</label>
             <input type="radio" th:field="*{authorSex}" value="male" required>Male
