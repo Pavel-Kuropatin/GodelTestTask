@@ -42,8 +42,9 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 1. Fix known issues
 2. Add tests
 3. Add multiple selection of authors on book creation and adding/removing authors to book
-4. Add admin/user functionality
-5. Visually improve web forms by adding design
+4. Wrap service methods bodies with try/catch and send exceptions information to the logger
+5. Add admin/user functionality
+6. Visually improve web forms
 
 ***
 ## Instructions
