@@ -16,27 +16,27 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 8. Ability to get/add/edit/delete the Book and the Author including adding and removing the author of the book.
 9. Validation upon add/edit operation.
 10. The application provides the ability to search criteria for books (including their combinations):
-    * by name _(including the first letters)_
-    * by year of publication _(in range)_
-    * by the name of the publisher _(including the first letters)_
-    * by the first name / last name of the author _(including the first letters)_
-    * by sex
-    * by year of birth _(in range)_
+    - by name _(including the first letters)_
+    - by year of publication _(in range)_
+    - by the name of the publisher _(including the first letters)_
+    - by the first name / last name of the author _(including the first letters)_
+    - by sex
+    - by year of birth _(in range)_
 11. Application contains an SQL script to initialize predefined data on application startup.
 
-### Technology stack
-* Java
-* Maven
-* Spring Web MVC
-* Spring JDBC
-* Thymeleaf
-* PostgreSQL
-* Git
-* SonarCloud _via GitHub Actions_
+### Technology stack:
+- Java
+- Maven
+- Spring Web MVC
+- Spring JDBC
+- Thymeleaf
+- PostgreSQL
+- Git
+- SonarCloud _via GitHub Actions_
 
 ### Known issues:
 1. There is still some logic in controllers that must be moved to service classes.
-2. Probable vulnerability issue in <span style="color:green">SearchRepositoryImpl.findBooks()</span> method. SQL query must be changed.
+2. Probable vulnerability issue in `SearchRepositoryImpl.findBooks()` method. SQL query must be changed.
 3. Date of birth stored as string. Must be stored and processed as SQL Data.
 
 ### TODO:
@@ -51,44 +51,54 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 ## Instructions
 ***
 ### To launch this project you will need:
-* IntellijIDEA _CE or EE_
-* JDK 11
-* Apache Maven 3.6.3 _or higher_
-* Apache Tomcat 9.0.41 _or higher_
-* PostgreSQL 13.1 _or higher_
+- IntellijIDEA _CE or EE_
+- JDK 11
+- Apache Maven 3.6.3 _or higher_
+- Apache Tomcat 9.0.41 _or higher_
+- PostgreSQL 13.1 _or higher_
 
 ### How to:
 
 1. Download project from github or clone using commands
 
-        git clone https://github.com/Pavel-Kuropatin/GodelTestTask.git
-        cd GodelTestTask
+    ```
+    git clone https://github.com/Pavel-Kuropatin/GodelTestTask.git
+    cd GodelTestTask
+    ```
 
-2. Create a database with a name <span style="color:green">library</span>, create user with a name <span style="color:green">username</span> and password <span style="color:green">password</span>.
-   You can also use different database name and user. To do so, you must specify desired parameters it in <span style="color:green">SpringConfig.java</span> in this method.
+2. Create a database with a name `library`, create user with a name `username` and password `password`.
+   You can also use different database name and user. To do so, you must specify desired parameters in `SpringConfig.java` in this method:
 
-        public DataSource dataSource() {
-            DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setDriverClassName("org.postgresql.Driver");
-            dataSource.setUrl("jdbc:postgresql://localhost:5432/library);
-            dataSource.setUsername("username");
-            dataSource.setPassword("password");
-            return dataSource;
-        }
+    ```java
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/library);
+        dataSource.setUsername("username");
+        dataSource.setPassword("password");
+        return dataSource;
+    }
+    ```
 
-3. If you're using IntellijIDEA Community Edition you should go to _File -> Settings -> Plugins_ and install <span style="color:green">Smart Tomcat</span> plugin
+3. If you're using IntellijIDEA Community Edition you should go to _File -> Settings -> Plugins_ and install `Smart Tomcat` plugin
+
 
 ![Smart Tomcat Plugin](images/Smart%20Tomcat%20Plugin.png)
 
-4. Press <span style="color:green">Alt+Shift+F10</span> then <span style="color:green">0</span> to open Run/Debug Configuration then press <span style="color:green">Alt+Insert</span> select <span style="color:green">Smart Tomcat</span> and configure Run/Debug Configuration as follows. Make sure that _Context Path_ field is empty. Deployment directory root may be different.
+
+4. Press `Alt+Shift+F10` then `0` to open Run/Debug Configuration then press `Alt+Insert` select `Smart Tomcat` and configure Run/Debug Configuration as follows. Make sure that `Context Path` field is empty. Deployment directory root may be different.
+
 
 ![Smart Tomcat Plugin](images/Create%20Run-Debug%20Configuration.png)
 
-In <span style="color:green">Before Launch</span> tab add <span style="color:green">Run Maven Goal</span> task with empty command line. That allows maven to use default goal specified in pom.xml
+
+In `Before Launch`</span> tab add `Run Maven Goal` task with empty command line. That allows maven to use default goal specified in `pom.xml`
+
 
 ![Smart Tomcat Plugin](images/Select%20Maven%20Goal.png)
 
-5. IntellijIDEA Enterprise Edition has inbuilt Tomcat Server, so you need to select _Tomcat Server -> Local_ as Run/Debug Configuration and configure it same as above. In addition, you should press the <span style="color:green">Fix</span> button and select <span style="color:green">GodelTestTask:war exploded</span>. _Application Context_ field must be empty.
+
+5. IntellijIDEA Enterprise Edition has inbuilt Tomcat Server, so you need to select _Tomcat Server -> Local_ as Run/Debug Configuration and configure it same as above. In addition, you should press the `Fix` button and select `GodelTestTask:war exploded`. `Application Context` field must be empty.
 
 
 6. If you did everything right, you can see start page at [http://localhost:8080/](http://localhost:8080/)
