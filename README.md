@@ -35,9 +35,7 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 - SonarCloud _via GitHub Actions_
 
 ### Known issues:
-1. There is still some logic in controllers that must be moved to service classes.
-2. Probable vulnerability issue in `SearchRepositoryImpl.findBooks()` method. SQL query must be changed.
-3. Date of birth stored as string. Must be stored and processed as SQL Data.
+1. Date of birth stored as string. Must be stored and processed as SQL Data.
 
 ### TODO:
 1. Fix known issues.
@@ -66,8 +64,7 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
     cd GodelTestTask
     ```
 
-2. Create a database with a name `library`, create user with a name `username` and password `password`.
-   You can also use different database name and user. To do so, you must specify desired parameters in `SpringConfig.java` in this method:
+2. Create a database with a name `library`, create user with a name `username` and password `password`. You can also use different database name and user. To do so, you must specify desired parameters in `SpringConfig.java` in this method:
 
     ```java
     public DataSource dataSource() {
@@ -82,23 +79,18 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 
 3. If you're using IntellijIDEA Community Edition you should go to _File -> Settings -> Plugins_ and install `Smart Tomcat` plugin
 
-
-![Smart Tomcat Plugin](images/Smart%20Tomcat%20Plugin.png)
-
-
-4. Press `Alt+Shift+F10` then `0` to open Run/Debug Configuration then press `Alt+Insert` select `Smart Tomcat` and configure Run/Debug Configuration as follows. Make sure that `Context Path` field is empty. Deployment directory root may be different.
+   ![Smart Tomcat Plugin](images/Smart%20Tomcat%20Plugin.png)
 
 
-![Smart Tomcat Plugin](images/Create%20Run-Debug%20Configuration.png)
+4. Press `Alt+Shift+F10` then `0` to open Run/Debug Configuration then press `Alt+Insert` select `Smart Tomcat` and configure Run/Debug Configuration as follows. Make sure that `Context Path` field is empty. Deployment directory root may be different.  
+   In `Before Launch`</span> tab add `Run Maven Goal` task with empty command line. That allows maven to use default goal specified in `pom.xml`
+   
+   ![Create Run-Debug Configuration](images/Create%20Run-Debug%20Configuration.png)
+
+   ![Select Maven Goal](images/Select%20Maven%20Goal.png)
 
 
-In `Before Launch`</span> tab add `Run Maven Goal` task with empty command line. That allows maven to use default goal specified in `pom.xml`
-
-
-![Smart Tomcat Plugin](images/Select%20Maven%20Goal.png)
-
-
-5. IntellijIDEA Enterprise Edition has inbuilt Tomcat Server, so you need to select _Tomcat Server -> Local_ as Run/Debug Configuration and configure it same as above. In addition, you should press the `Fix` button and select `GodelTestTask:war exploded`. `Application Context` field must be empty.
+5. IntellijIDEA Enterprise Edition has inbuilt Tomcat Server, so you need to select _Tomcat Server -> Local_ as Run/Debug Configuration and configure it same as above. In addition, you should press the `Fix` button and select `GodelTestTask:war exploded`. `Application Context` field must be empty
 
 
 6. If you did everything right, you can see start page at [http://localhost:8080/](http://localhost:8080/)
