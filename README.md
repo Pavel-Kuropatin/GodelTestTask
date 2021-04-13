@@ -1,11 +1,11 @@
 # Library _(powered by Spring WEB MVC)_
-***
-## Project description
-***
-This is the REST Web Application serves as library that allows to perform CRUD operations about books and their authors. It was created as part of an interview test task at Godel Technologies.
+
+### Project description
+
+This is a library that allows to perform CRUD operations with books and their authors. It was created as part of an interview test task at Godel Technologies.
 Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https://github.com/Pavel-Kuropatin/GodelTestTask/blob/main/Mogilev%20Mastery%202021%20Task.pdf) located in the project root.
 
-### Application features:
+### Application features
 1. Ability to create books that contain following information: book name, year of publication, authors, publisher.
 2. A book can have one or more authors. The book must have at least one author on creation/editing.
 3. Ability to edit the authors of the book.
@@ -16,15 +16,15 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 8. Ability to get/add/edit/delete the Book and the Author including adding and removing the author of the book.
 9. Validation upon add/edit operation.
 10. The application provides the ability to search criteria for books (including their combinations):
-    - by name _(including the first letters)_
-    - by year of publication _(in range)_
-    - by the name of the publisher _(including the first letters)_
-    - by the first name / last name of the author _(including the first letters)_
-    - by sex
-    - by year of birth _(in range)_
+    - by name _(including the first letters)_;
+    - by year of publication _(in range)_;
+    - by the name of the publisher _(including the first letters)_;
+    - by the first name / last name of the author _(including the first letters)_;
+    - by sex;
+    - by year of birth _(in range)_.
 11. Application contains an SQL script to initialize predefined data on application startup.
 
-### Technology stack:
+### Technology stack
 - Java
 - Maven
 - Spring Web MVC
@@ -34,10 +34,10 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 - Git
 - SonarCloud _via GitHub Actions_
 
-### Known issues:
+### Known issues
 1. Date of birth stored as string. Must be stored and processed as SQL Data.
 
-### TODO:
+### TODO
 1. Fix known issues.
 2. Add tests.
 3. Add multiple selection of authors on book creation and adding/removing authors to book.
@@ -45,17 +45,17 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 5. Add admin/user functionality.
 6. Visually improve web forms.
 
-***
-## Instructions
-***
-### To launch this project you will need:
+---
+# Launch instructions
+
+### To launch this project you will need
 - IntellijIDEA _CE or EE_
 - JDK 11
 - Apache Maven 3.6.3 _or higher_
 - Apache Tomcat 9.0.41 _or higher_
 - PostgreSQL 13.1 _or higher_
 
-### How to:
+### How to
 
 1. Download project from github or clone using commands
 
@@ -83,14 +83,14 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 
 
 4. Press `Alt+Shift+F10` then `0` to open Run/Debug Configuration then press `Alt+Insert` select `Smart Tomcat` and configure Run/Debug Configuration as follows. Make sure that `Context Path` field is empty. Deployment directory root may be different.  
-   In `Before Launch`</span> tab add `Run Maven Goal` task with empty command line. That allows maven to use default goal specified in `pom.xml`
+   In `Before Launch`</span> tab press `+` and add `Run Maven Goal` task with empty command line. That allows maven to use default goal specified in `pom.xml`
    
    ![Create Run-Debug Configuration](images/Create%20Run-Debug%20Configuration.png)
 
    ![Select Maven Goal](images/Select%20Maven%20Goal.png)
 
 
-5. IntellijIDEA Enterprise Edition has inbuilt Tomcat Server, so you need to select _Tomcat Server -> Local_ as Run/Debug Configuration and configure it same as above. In addition, you should press the `Fix` button and select `GodelTestTask:war exploded`. `Application Context` field must be empty
+5. IntellijIDEA Enterprise Edition has inbuilt Tomcat Server, so you need to select _Tomcat Server -> Local_ as Run/Debug Configuration and configure it same as above. In addition, you should press the `Fix` button and select `Library-SpringMVC:war exploded`. `Application Context` field must be empty
 
 
 6. If you did everything right, you can see start page at [http://localhost:8080/](http://localhost:8080/)
