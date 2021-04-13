@@ -30,7 +30,7 @@ public class SpringDispatcherServletInitializer extends AbstractAnnotationConfig
     }
 
     /** Registration of hidden HTTP methods */
-    private void registerHiddenFieldFilter(ServletContext servletContextContext) {
-        servletContextContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
+    private void registerHiddenFieldFilter(ServletContext servletContext) {
+        servletContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
     }
 }
