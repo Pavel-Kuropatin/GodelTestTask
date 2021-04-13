@@ -19,20 +19,20 @@ public class SearchRepositoryImpl implements SearchRepository {
     }
 
     @Override
-    public List<Book> findBooks(Search search, String sex, String searchDirection) {
+    public List<Book> findBooks(Search search, String sex, String sortDirection) {
         String sql = "SELECT * FROM books " +
-                     "WHERE LOWER(book_name) LIKE LOWER('" + search.getBookName() + "%') " +
+                     "WHERE LOWER(book_name) LIKE LOWER(?) " +
                      "AND year_of_publication BETWEEN ? AND ? " +
-                     "AND LOWER(publisher) LIKE LOWER('" + search.getBookPublisher() + "%') " +
+                     "AND LOWER(publisher) LIKE LOWER(?) " +
                      "AND id IN (" +
                          "SELECT book_author.book_id " +
                          "FROM authors, book_author " +
                          "WHERE book_author.author_id = authors.id " +
-                         "AND LOWER(authors.first_name) LIKE LOWER('" + search.getAuthorFirstName() + "%') " +
-                         "AND LOWER(authors.last_name) LIKE LOWER('" + search.getAuthorLastName() + "%') " +
+                         "AND LOWER(authors.first_name) LIKE LOWER(?) " +
+                         "AND LOWER(authors.last_name) LIKE LOWER(?) " +
                          "AND CAST(SUBSTRING(authors.birth_date, 7) as int) BETWEEN ? AND ? " +
-                         sex +
-                     ") ORDER BY " + search.getSortBy() + " " + searchDirection;
-        return JDBC_TEMPLATE.query(sql, new BookMapper(), search.getBookYearOfPublicationMin(), search.getBookYearOfPublicationMax(), search.getAuthorYearOfBirthMin(), search.getAuthorYearOfBirthMax());
+                         "AND authors.sex LIKE ? " +
+                     ") ORDER BY " + search.getOrderBy() + " " + sortDirection;
+        return JDBC_TEMPLATE.query(sql, new BookMapper(), (search.getBookName() + "%"), search.getBookYearOfPublicationMin(), search.getBookYearOfPublicationMax(), (search.getBookPublisher() + "%"), (search.getAuthorFirstName() + "%"), (search.getAuthorLastName() + "%"), search.getAuthorYearOfBirthMin(), search.getAuthorYearOfBirthMax(), (sex + "%"));
     }
 }

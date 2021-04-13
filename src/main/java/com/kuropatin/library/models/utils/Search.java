@@ -6,9 +6,9 @@ import static com.kuropatin.library.models.entities.Book.*;
 
 public class Search {
 
-    public static final String SORT_BY_BOOK_NAME = BOOK_NAME;
-    public static final String SORT_BY_YEAR_OF_PUBLICATION = BOOK_YEAR_OF_PUBLICATION;
-    public static final String SORT_BY_BOOK_PUBLISHER = BOOK_PUBLISHER;
+    public static final String ORDER_BY_BOOK_NAME = BOOK_NAME;
+    public static final String ORDER_BY_YEAR_OF_PUBLICATION = BOOK_YEAR_OF_PUBLICATION;
+    public static final String ORDER_BY_BOOK_PUBLISHER = BOOK_PUBLISHER;
     public static final String SEARCH_ASCENDING = "ASC";
     public static final String SEARCH_DESCENDING = "DESC";
 
@@ -34,9 +34,10 @@ public class Search {
 
     private String authorSex = SEX_UNDEFINED;
 
-    private String sortBy = SORT_BY_BOOK_NAME;
+    private String orderBy = ORDER_BY_BOOK_NAME;
 
     public Search() {
+        
     }
 
     public String getBookName() {
@@ -119,11 +120,11 @@ public class Search {
         this.authorSex = authorSex;
     }
 
-    public String getSortBy() {
-        return sortBy;
+    public String getOrderBy() {
+        return orderBy;
     }
 
-    public void setSortBy(String sortBy) {
-        this.sortBy = sortBy;
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 }

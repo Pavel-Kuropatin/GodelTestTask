@@ -20,7 +20,7 @@
             <a href="/authors">Browse authors</a>
         </div>
         <h3>What do you want to find?</h3>
-        <form th:method="GET" th:action="@{/search}" th:object="${search}")>
+        <form th:method="GET" th:action="@{/search}" th:object="${search}">
             <label for="bookName">Book name:</label>
             <input type="text" th:field="*{bookName}" id="bookName">
                 <span style="color:red" th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}">error</span>
@@ -53,9 +53,9 @@
             <input type="radio" th:field="*{authorSex}" value="undefined" required checked>Undefined
             <br>
             <label>Sort by:</label>
-            <input type="radio" th:field="*{sortBy}" value="book_name" required checked>Book name
-            <input type="radio" th:field="*{sortBy}" value="year_of_publication" required>Year of publication
-            <input type="radio" th:field="*{sortBy}" value="publisher" required>Publisher
+            <input type="radio" th:field="*{orderBy}" value="book_name" required checked>Book name
+            <input type="radio" th:field="*{orderBy}" value="year_of_publication" required>Year of publication
+            <input type="radio" th:field="*{orderBy}" value="publisher" required>Publisher
             <br>
             <br>
             <input type="reset" value="Clear">
