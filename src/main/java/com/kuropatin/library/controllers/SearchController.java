@@ -1,6 +1,5 @@
 package com.kuropatin.library.controllers;
 
-import com.kuropatin.library.repositories.SearchRepositoryImpl;
 import com.kuropatin.library.services.SearchService;
 import com.kuropatin.library.models.utils.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class SearchController {
     private static final String MODEL_ATTRIBUTE_BOOKS = "books";
 
     @Autowired
-    public SearchController(SearchRepositoryImpl searchRepositoryImpl, SearchService searchService) {
+    public SearchController(SearchService searchService) {
         this.searchService = searchService;
     }
 
@@ -31,10 +30,9 @@ public class SearchController {
      */
     @GetMapping
     public String getViewSearch(@ModelAttribute(MODEL_ATTRIBUTE_SEARCH) Search search, Model model, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return SEARCH_HTML;
+        if (!bindingResult.hasErrors()) {
+            model.addAttribute(MODEL_ATTRIBUTE_BOOKS, searchService.findBooks(search));
         }
-        model.addAttribute(MODEL_ATTRIBUTE_BOOKS, searchService.findBooks(search));
         return SEARCH_HTML;
     }
 }
