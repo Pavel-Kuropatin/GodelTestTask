@@ -117,8 +117,9 @@ public class BookController {
      */
     @PostMapping("/{id}")
     public String getViewBooksOnCreate(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) @Valid Book book, BindingResult bindingResult) {
-        if (bindingResult.hasErrors() || bookService.isBookExists(book.getName()))
+        if (bindingResult.hasErrors() || bookService.isBookExists(book.getName())) {
             return BOOK_ADD_HTML;
+        }
         bookService.createBook(book);
         return REDIRECT_TO_BOOKS + bookService.getBookId(book);
     }
@@ -130,8 +131,9 @@ public class BookController {
      */
     @PatchMapping("/{id}")
     public String getViewBooksOnUpdate(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) @Valid Book book, @PathVariable(PATH_VARIABLE_ID) long id, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return BOOK_EDIT_HTML;
+        }
         bookService.updateBook(id, book);
         return REDIRECT_TO_BOOKS + id;
     }
@@ -143,8 +145,9 @@ public class BookController {
      */
     @DeleteMapping("/{id}/remove-author")
     public String getViewBookOnAuthorRemove(@ModelAttribute(MODEL_ATTRIBUTE_BOOK) Book book, @PathVariable(PATH_VARIABLE_ID) long id, Model model) {
-        if (bookService.isLastAuthor(id))
+        if (bookService.isLastAuthor(id)) {
             return REDIRECT_TO_BOOKS + id;
+        }
         bookService.removeBookAuthor(book);
         return REDIRECT_TO_BOOKS + id;
     }

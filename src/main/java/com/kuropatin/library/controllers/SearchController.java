@@ -31,8 +31,9 @@ public class SearchController {
      */
     @GetMapping
     public String getViewSearch(@ModelAttribute(MODEL_ATTRIBUTE_SEARCH) Search search, Model model, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return SEARCH_HTML;
+        }
         model.addAttribute(MODEL_ATTRIBUTE_BOOKS, searchService.findBooks(search));
         return SEARCH_HTML;
     }

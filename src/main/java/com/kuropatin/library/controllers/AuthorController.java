@@ -79,8 +79,9 @@ public class AuthorController {
      */
     @PostMapping("/{id}")
     public String getViewAuthorsOnCreate(@ModelAttribute(MODEL_ATTRIBUTE_AUTHOR) @Valid Author author, BindingResult bindingResult) {
-        if (bindingResult.hasErrors() || authorService.isAuthorExists(author))
+        if (bindingResult.hasErrors() || authorService.isAuthorExists(author)) {
             return AUTHOR_ADD_HTML;
+        }
         authorService.createAuthor(author);
         return REDIRECT_TO_AUTHORS + authorService.getAuthorId(author);
     }
@@ -92,8 +93,9 @@ public class AuthorController {
      */
     @PatchMapping("/{id}")
     public String getViewAuthorsOnUpdate(@ModelAttribute(MODEL_ATTRIBUTE_AUTHOR) @Valid Author author, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return AUTHOR_EDIT_HTML;
+        }
         authorService.updateAuthor(author.getId(), author);
         return REDIRECT_TO_AUTHORS + author.getId();
     }
