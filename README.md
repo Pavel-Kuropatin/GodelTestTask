@@ -16,14 +16,14 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 8. Ability to get/add/edit/delete the Book and the Author including adding and removing the author of the book.
 9. Validation upon add/edit operation.
 10. The application provides the ability to search criteria for books (including their combinations):
-      * by name _(including the first letters)_
-      * by year of publication _(in range)_
-      * by the name of the publisher _(including the first letters)_
-      * by the first name / last name of the author _(including the first letters)_
-      * by sex
-      * by year of birth _(in range)_
+    * by name _(including the first letters)_
+    * by year of publication _(in range)_
+    * by the name of the publisher _(including the first letters)_
+    * by the first name / last name of the author _(including the first letters)_
+    * by sex
+    * by year of birth _(in range)_
 11. Application contains an SQL script to initialize predefined data on application startup.
-   
+
 ### Technology stack
 * Java
 * Maven
@@ -60,13 +60,13 @@ Main goals of this task are described in [Mogilev Mastery 2021 Task.pdf](https:/
 ### How to:
 
 1. Download project from github or clone using commands
-   
+
         git clone https://github.com/Pavel-Kuropatin/GodelTestTask.git
         cd GodelTestTask
-   
+
 2. Create a database with a name <span style="color:green">library</span>, create user with a name <span style="color:green">username</span> and password <span style="color:green">password</span>.
-You can also use different database name and user. To do so, you must specify desired parameters it in <span style="color:green">SpringConfig.java</span> in this method.
-   
+   You can also use different database name and user. To do so, you must specify desired parameters it in <span style="color:green">SpringConfig.java</span> in this method.
+
         public DataSource dataSource() {
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("org.postgresql.Driver");
@@ -75,7 +75,7 @@ You can also use different database name and user. To do so, you must specify de
             dataSource.setPassword("password");
             return dataSource;
         }
-   
+
 3. If you're using IntellijIDEA Community Edition you should go to _File -> Settings -> Plugins_ and install <span style="color:green">Smart Tomcat</span> plugin
 
 ![Smart Tomcat Plugin](images/Smart%20Tomcat%20Plugin.png)
