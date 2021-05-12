@@ -4,7 +4,7 @@ import javax.validation.constraints.Size;
 import static com.kuropatin.library.models.entities.Author.SEX_UNDEFINED;
 import static com.kuropatin.library.models.entities.Book.*;
 
-public class Search {
+public class SearchCriteria {
 
     public static final String ORDER_BY_BOOK_NAME = BOOK_NAME;
     public static final String ORDER_BY_YEAR_OF_PUBLICATION = BOOK_YEAR_OF_PUBLICATION;
@@ -36,7 +36,7 @@ public class Search {
 
     private String orderBy = ORDER_BY_BOOK_NAME;
 
-    public Search() {
+    public SearchCriteria() {
         
     }
 
